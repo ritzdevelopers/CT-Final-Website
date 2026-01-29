@@ -100,7 +100,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
               </div>
               <div>
                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold mb-1 text-white/40">Phone / Whatsapp</p>
-                <p className="text-2xl md:text-3xl font-medium text-white tracking-tight">+91 99106 04107</p>
+                <p className="text-2xl md:text-3xl font-medium text-white tracking-tight">+91-9220516777</p>
               </div>
             </div>
 
