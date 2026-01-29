@@ -1,0 +1,277 @@
+
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
+
+interface ReelsProps {
+  isDarkMode: boolean;
+}
+
+const ReelCard: React.FC<{
+  title: string;
+  video: string;
+  isDarkMode: boolean;
+  index: number;
+}> = ({ title, video, isDarkMode, index }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // 3D Tilt Effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play().catch(e => console.warn("Reel playback failed:", e));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play();
+    }
+  };
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ 
+        opacity: { duration: 0.8, delay: index * 0.1 },
+        scale: { duration: 0.8, delay: index * 0.1 }
+      }}
+      whileHover={{ 
+        y: -15, 
+        zIndex: 50,
+        boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.2)" 
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        scrollSnapAlign: 'center'
+      }}
+      className="relative h-[450px] md:h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group"
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+      >
+        <source src={video} type="video/mp4" />
+      </video>
+
+      {/* Cinematic Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
+      
+      {/* Content */}
+      <div 
+        style={{ transform: "translateZ(30px)" }}
+        className="absolute bottom-8 left-0 right-0 text-center px-6"
+      >
+        <motion.h4 
+          className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white leading-none mb-3 font-sora"
+        >
+          {title}
+        </motion.h4>
+        <motion.div 
+          animate={{ width: isHovered ? 40 : 20 }}
+          className="h-[1.5px] bg-blue-500 mx-auto rounded-full" 
+        />
+      </div>
+
+      {/* Audio Status Overlay */}
+      <div className="absolute top-6 right-6 z-10">
+        <div className="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/10 transition-colors group-hover:border-blue-500/50">
+          {isHovered ? <Volume2 size={12} className="text-blue-400" /> : <VolumeX size={12} className="text-white/40" />}
+        </div>
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+    </motion.div>
+  );
+};
+
+const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const reels = useMemo(() => [
+    {
+      title: "Storytelling",
+      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4"
+    },
+    {
+      title: "Studio Vision",
+      video: "https://res.cloudinary.com/df4ax8siq/video/upload/VID_20251225_173407_545_j0us09.mp4"
+    },
+    {
+      title: "AI Model",
+      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4"
+    },
+    {
+      title: "Cinematic Flow",
+      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
+    },
+    {
+      title: "Neural Core",
+      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
+    }
+  ], []);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 20);
+      setCanScrollRight(scrollLeft < (scrollWidth - clientWidth - 20));
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = window.innerWidth < 768 ? 300 : 500;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <section className="py-24 md:py-32 relative overflow-hidden flex flex-col items-center bg-zinc-950">
+      {/* Dynamic Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" />
+
+      <div className="mb-16 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center gap-4"
+        >
+          <div className="flex items-center gap-6">
+            <div className="w-12 h-[1px] bg-blue-500/20" />
+            <span className="text-[10px] font-bold tracking-[0.6em] uppercase text-white/40">
+              Vertical Productions
+            </span>
+            <div className="w-12 h-[1px] bg-blue-500/20" />
+          </div>
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-center leading-none font-sora text-white">
+            AI Reels
+          </h2>
+        </motion.div>
+      </div>
+
+      {/* Modern Slider Container */}
+      <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
+        
+        {/* Navigation Buttons */}
+        <AnimatePresence>
+          {canScrollLeft && (
+            <motion.button
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              onClick={() => scroll('left')}
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+            >
+              <ChevronLeft size={24} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {canScrollRight && (
+            <motion.button
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              onClick={() => scroll('right')}
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Scrollable Area */}
+        <div 
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar px-10 md:px-24 py-10"
+          style={{ 
+            scrollSnapType: 'x mandatory',
+            perspective: '2000px'
+          }}
+        >
+          {reels.map((reel, index) => (
+            <div key={index} className="flex-shrink-0">
+              <ReelCard 
+                title={reel.title}
+                video={reel.video}
+                isDarkMode={isDarkMode}
+                index={index}
+              />
+            </div>
+          ))}
+          
+          {/* Spacer to allow for better alignment at end */}
+          <div className="w-10 md:w-24 flex-shrink-0" />
+        </div>
+
+        {/* Cinematic Edge Faders */}
+        <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
+        <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.3 }}
+        className="mt-20 flex flex-col items-center gap-4"
+      >
+        <div className="text-[9px] font-bold tracking-[0.8em] uppercase text-white/50">
+          Neural Media Synthesis
+        </div>
+        <div className="flex gap-2">
+          {reels.map((_, i) => (
+            <div key={i} className="w-1 h-1 rounded-full bg-blue-500/30" />
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Reels;
