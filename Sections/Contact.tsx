@@ -1,12 +1,28 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Globe, Mail, Phone, Instagram, Linkedin, Youtube, Facebook, Twitter, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Globe, Mail, Phone, Instagram, Linkedin, Youtube, Facebook, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 interface ContactProps {
   isDarkMode: boolean;
   isFullPage?: boolean;
 }
+
+// Custom X Logo Component (Twitter/X official logo)
+const XLogo: React.FC<{ size?: number; className?: string }> = ({ size = 24, className = "" }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      className={className}
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+};
 
 // Live connection to CT Leads Google Sheet
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzsU7MKcykqhg36Z6TzqDS-lYYV8uJNGtEaU9uKGBXAkw-X1byvisoDo3Dk4Dk5tqgc/exec";
@@ -63,11 +79,41 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
   };
 
   const socialLinks = [
-    { icon: <Instagram size={24} />, link: "https://www.instagram.com/contenaissance/", name: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600" },
-    { icon: <Linkedin size={24} />, link: "https://www.linkedin.com/company/108385521/", name: "LinkedIn", color: "hover:bg-blue-600" },
-    { icon: <Youtube size={24} />, link: "https://www.youtube.com/@Contenaissance", name: "YouTube", color: "hover:bg-red-600" },
-    { icon: <Twitter size={24} />, link: "https://x.com/contenaissance", name: "X (Twitter)", color: "hover:bg-black" },
-    { icon: <Facebook size={24} />, link: "https://www.facebook.com/profile.php?id=61579738437856", name: "Facebook", color: "hover:bg-blue-700" }
+    { 
+      Icon: Instagram, 
+      link: "https://www.instagram.com/contenaissance/", 
+      name: "Instagram", 
+      iconColor: "text-white/90 group-hover:text-pink-400",
+      bgColor: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600 hover:border-pink-400/60"
+    },
+    { 
+      Icon: Linkedin, 
+      link: "https://www.linkedin.com/company/108385521/", 
+      name: "LinkedIn", 
+      iconColor: "text-white/90 group-hover:text-blue-400",
+      bgColor: "hover:bg-blue-600 hover:border-blue-400/60"
+    },
+    { 
+      Icon: Youtube, 
+      link: "https://www.youtube.com/@Contenaissance", 
+      name: "YouTube", 
+      iconColor: "text-white/90 group-hover:text-red-400",
+      bgColor: "hover:bg-red-600 hover:border-red-400/60"
+    },
+    { 
+      Icon: XLogo, 
+      link: "https://x.com/contenaissance", 
+      name: "X (Twitter)", 
+      iconColor: "text-white/90 group-hover:text-white",
+      bgColor: "hover:bg-zinc-900 hover:border-white/60"
+    },
+    { 
+      Icon: Facebook, 
+      link: "https://www.facebook.com/profile.php?id=61579738437856", 
+      name: "Facebook", 
+      iconColor: "text-white/90 group-hover:text-blue-400",
+      bgColor: "hover:bg-blue-600 hover:border-blue-400/60"
+    }
   ];
 
   return (
@@ -128,10 +174,14 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                 rel="noopener noreferrer"
                 whileHover={{ y: -5, scale: 1.15 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-16 h-16 rounded-full border-2 border-white/20 flex items-center justify-center text-white transition-all duration-300 bg-zinc-900/60 hover:bg-zinc-900 hover:border-white/40 hover:shadow-lg hover:shadow-blue-500/30 ${social.color}`}
+                className={`group w-16 h-16 rounded-full border-2 border-white/30 flex items-center justify-center transition-all duration-300 bg-zinc-900/70 hover:shadow-lg hover:shadow-blue-500/30 ${social.bgColor}`}
                 aria-label={social.name}
               >
-                {social.icon}
+                {social.name === "X (Twitter)" ? (
+                  <social.Icon size={24} className={social.iconColor} />
+                ) : (
+                  <social.Icon size={24} className={social.iconColor} strokeWidth={1.5} />
+                )}
               </motion.a>
             ))}
           </div>
