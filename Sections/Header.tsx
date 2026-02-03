@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
                 src={logoUrl} 
                 alt="Contenaissance Logo" 
                 onError={() => setImgError(true)}
-                className={`h-[100px] md:h-44 w-auto object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? 'brightness-125 contrast-125' : ''}`}
+                className={`h-[80px] sm:h-[100px] md:h-44 w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? 'brightness-125 contrast-125' : ''}`}
               />
             ) : (
               <span className="text-xl font-bold tracking-tighter uppercase font-sora text-white">

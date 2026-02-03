@@ -37,7 +37,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
           muted
           loop
           playsInline
-          className={`w-full h-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
+          className={`w-full h-full max-w-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
         >
           <source src={backgroundVideoUrl} type="video/mp4" />
         </video>
@@ -55,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
         style={{ opacity, y }}
         className="relative z-10 w-full max-w-[1400px] flex flex-col items-center"
       >
-        <div className="flex items-center justify-center gap-6 md:gap-12 lg:gap-16">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-12 lg:gap-16">
           <div className="flex flex-col items-start">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -74,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className="text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-Ariel text-white">
+              <h1 className="text-5xl sm:text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-Ariel text-white">
                 Grow
               </h1>
             </motion.div>
@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className="text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-serif-brand text-white">
+              <h1 className="text-5xl sm:text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-serif-brand text-white">
                 Brand
               </h1>
             </motion.div>
@@ -103,9 +103,9 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
             initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center select-none"
+            className="relative flex items-center select-none w-full sm:w-auto"
           >
-            <span className="text-[12rem] md:text-[22rem] lg:text-[28rem] font-medium tracking-[-0.05em] leading-none font-Ariel relative bg-clip-text text-transparent bg-gradient-to-br from-white via-blue-300 to-blue-600">
+            <span className="text-[8rem] sm:text-[12rem] md:text-[22rem] lg:text-[28rem] font-medium tracking-[-0.05em] leading-none font-Ariel relative bg-clip-text text-transparent bg-gradient-to-br from-white via-blue-300 to-blue-600">
               AI
               
               <div className="absolute inset-0 pointer-events-none">
@@ -138,7 +138,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="text-xl md:text-3xl max-w-5xl font-light leading-none tracking-tight px-4 whitespace-nowrap text-white"
+            className="text-xl md:text-3xl max-w-5xl font-light leading-none tracking-tight px-4 text-white"
           >
             Transform your brand with <span className="font-medium text-white">AI-Powered cinematic storytelling.</span>
           </motion.p>

@@ -73,7 +73,7 @@ const ReelCard: React.FC<{
         transformStyle: "preserve-3d",
         scrollSnapAlign: 'center'
       }}
-      className="relative h-[450px] md:h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group"
+      className="relative h-[400px] sm:h-[450px] md:h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-full max-w-[280px] sm:max-w-[320px]"
     >
       <video
         ref={videoRef}
@@ -81,7 +81,7 @@ const ReelCard: React.FC<{
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-1000 group-hover:scale-110"
       >
         <source src={video} type="video/mp4" />
       </video>
@@ -170,11 +170,11 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   };
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden flex flex-col items-center bg-zinc-950">
+    <section className="-mt-8 pt-2 pb-8 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
       {/* Dynamic Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" />
 
-      <div className="mb-16 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
+      <div className="mb-4 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
             </span>
             <div className="w-12 h-[1px] bg-blue-500/20" />
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-center leading-none font-sora text-white">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-center leading-none font-sora text-white">
             AI Reels
           </h2>
         </motion.div>
@@ -205,7 +205,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
               onClick={() => scroll('left')}
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
             >
               <ChevronLeft size={24} />
             </motion.button>
@@ -219,7 +219,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
               onClick={() => scroll('right')}
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
             >
               <ChevronRight size={24} />
             </motion.button>
@@ -230,7 +230,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar px-10 md:px-24 py-10"
+          className="flex gap-4 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
           style={{ 
             scrollSnapType: 'x mandatory',
             perspective: '2000px'
@@ -256,20 +256,6 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.3 }}
-        className="mt-20 flex flex-col items-center gap-4"
-      >
-        <div className="text-[9px] font-bold tracking-[0.8em] uppercase text-white/50">
-          Neural Media Synthesis
-        </div>
-        <div className="flex gap-2">
-          {reels.map((_, i) => (
-            <div key={i} className="w-1 h-1 rounded-full bg-blue-500/30" />
-          ))}
-        </div>
-      </motion.div>
     </section>
   );
 };

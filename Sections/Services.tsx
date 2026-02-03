@@ -9,7 +9,6 @@ import {
   Sparkles, 
   Target, 
   Clapperboard,
-  ArrowUpRight,
   Code,
   Cpu
 } from 'lucide-react';
@@ -49,10 +48,6 @@ const ServiceCard: React.FC<{
         <p className="text-sm font-light leading-relaxed text-white/50">
           {description}
         </p>
-        
-        <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-2 group-hover:translate-x-0">
-          <ArrowUpRight size={20} className="text-blue-500" />
-        </div>
         
         <div className="absolute -inset-[1px] rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-gradient-to-br from-blue-500/20 to-transparent" />
       </motion.div>
@@ -110,8 +105,8 @@ const Services: React.FC<ServicesProps> = ({ isDarkMode, isFullPage = false }) =
   ];
 
   return (
-    <section id="services" className={`${isFullPage ? 'pt-40 md:pt-48' : 'py-16 md:py-24'} px-6 max-w-[1400px] mx-auto`}>
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+    <section id="services" className={`${isFullPage ? 'pt-40 md:pt-48' : '-mt-8 py-8 md:py-12'} px-6 max-w-[1400px] mx-auto`}>
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-8">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
@@ -129,7 +124,7 @@ const Services: React.FC<ServicesProps> = ({ isDarkMode, isFullPage = false }) =
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl font-bold tracking-tighter text-white"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white"
           >
             AI Services
           </motion.h2>
@@ -145,7 +140,7 @@ const Services: React.FC<ServicesProps> = ({ isDarkMode, isFullPage = false }) =
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-0">
         {allServices.map((service, index) => (
           <ServiceCard 
             key={index}

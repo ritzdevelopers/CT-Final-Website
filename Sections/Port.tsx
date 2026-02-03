@@ -52,7 +52,7 @@ const BrandFilmCard: React.FC<{
         stiffness: 300, 
         damping: 20 
       }}
-      className="relative w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
+      className="relative w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
     >
       {/* Video content - using single ref for perfectly synced audio/video */}
       <video
@@ -61,7 +61,7 @@ const BrandFilmCard: React.FC<{
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-1000 group-hover:scale-105"
       >
         <source src={video} type="video/mp4" />
       </video>
@@ -141,7 +141,7 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
   const duplicatedFilms = [...brandFilms, ...brandFilms];
 
   return (
-    <section className="pt-40 md:pt-48 pb-24 max-w-full overflow-hidden relative bg-zinc-950">
+    <section className="pt-32 md:pt-36 pb-6 max-w-full overflow-hidden relative bg-zinc-950">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -157,7 +157,7 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
         }
       `}</style>
 
-      <div className="mb-20 md:mb-32 flex flex-col items-center px-6">
+      <div className="mb-6 md:mb-8 flex flex-col items-center px-6">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -169,17 +169,17 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
           </span>
           <div className="w-16 h-[1px] bg-blue-500/30" />
         </motion.div>
-        <h2 className="text-5xl md:text-7xl lg:text-[7.5rem] font-bold tracking-tighter text-white uppercase font-sora text-center leading-[0.8] mb-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7.5rem] font-bold tracking-tighter text-white uppercase font-sora text-center leading-[0.8] mb-4">
           Brand Films
         </h2>
       </div>
 
-      <div className="relative w-full overflow-visible py-20 port-marquee-container">
+      <div className="relative w-full overflow-visible pt-6 pb-1 port-marquee-container">
         {/* Depth gradients */}
         <div className="absolute inset-y-0 left-0 w-32 md:w-96 bg-gradient-to-r from-zinc-950 via-zinc-950/40 to-transparent z-40 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 md:w-96 bg-gradient-to-l from-zinc-950 via-zinc-950/40 to-transparent z-40 pointer-events-none" />
 
-        <div className="port-marquee-inner flex gap-8 md:gap-16 px-12">
+        <div className="port-marquee-inner flex gap-4 sm:gap-8 md:gap-16 px-4 sm:px-8 md:px-12">
           {duplicatedFilms.map((film, index) => (
             <BrandFilmCard 
               key={index}
@@ -193,9 +193,9 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
         </div>
       </div>
 
-      <div className="h-[1px] w-full bg-white/5 my-32 max-w-[1400px] mx-auto px-6" />
+      <div className="h-[1px] w-full bg-white/5 my-1 max-w-[1400px] mx-auto px-6" />
 
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-[1400px] mx-auto -mt-2">
         <Reels isDarkMode={isDarkMode} />
       </div>
     </section>

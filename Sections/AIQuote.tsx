@@ -16,7 +16,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
   const visualItems = [1, 2, 3, 4];
 
   return (
-    <section className="pt-0 pb-16 md:pb-32 px-0 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
+    <section className="pt-0 pb-6 md:pb-8 px-0 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
       <div className="max-w-[1400px] mx-auto text-center relative z-20 w-full flex flex-col items-center px-6">
         {/* Quote Header Text */}
         <motion.div
@@ -24,7 +24,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center gap-0 mb-12 md:mb-20"
+          className="flex flex-col items-center gap-0 mb-6 md:mb-8"
         >
           <h2 
             style={arialFont}
@@ -51,7 +51,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                 repeat: Infinity, 
                 ease: "easeInOut" 
               }}
-              className="text-6xl md:text-8xl lg:text-[11rem] font-bold tracking-tighter text-white leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-[11rem] font-bold tracking-tighter text-white leading-none"
             >
               But are you?
             </motion.h3>
@@ -60,10 +60,10 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
       </div>
 
       {/* Full-Screen Horizontal Display Section */}
-      <div className="w-screen relative overflow-hidden py-4">
+      <div className="w-full relative overflow-hidden py-4">
         {/* The Marquee Container */}
         <motion.div 
-          className="flex flex-nowrap gap-10 md:gap-20 lg:gap-24 px-12 md:px-24"
+          className="flex flex-nowrap gap-6 sm:gap-10 md:gap-20 lg:gap-24 px-6 sm:px-12 md:px-24"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ 
             duration: 45, 
@@ -85,7 +85,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                   alt={`AI Evolution Step ${item}`} 
                   // Heights decreased by 40% from previous sizes to match "40% decrease" request
                   // Previous: 32 -> New: 20 | Previous: 64 -> New: 40 | Previous: 22.5rem -> New: 13.5rem
-                  className="h-20 md:h-40 lg:h-[13.5rem] w-auto object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
+                  className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
                 />
                 
                 {/* Subtle Inner Glow */}
@@ -112,7 +112,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
         initial={{ scaleY: 0 }}
         whileInView={{ scaleY: 1 }}
         viewport={{ once: true }}
-        className="mt-12 w-[1px] h-16 bg-gradient-to-b from-white/20 to-transparent"
+        className="mt-4 w-[1px] h-8 bg-gradient-to-b from-white/20 to-transparent"
       />
     </section>
   );
