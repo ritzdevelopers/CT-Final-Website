@@ -23,7 +23,6 @@ const XLogo: React.FC<{ size?: number; className?: string }> = ({ size = 24, cla
     </svg>
   );
 };
-
 // Live connection to CT Leads Google Sheet
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzsU7MKcykqhg36Z6TzqDS-lYYV8uJNGtEaU9uKGBXAkw-X1byvisoDo3Dk4Dk5tqgc/exec";
 
@@ -157,6 +156,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
               <div>
                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold mb-1 text-white/40">Our Base</p>
                 <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white leading-tight tracking-tight">
+                  Unit No. 404, 4Th Floor,<br />
                   Corporate Park, Tower A1<br />
                   Sector 142, Noida, UP, India
                 </p>

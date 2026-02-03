@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeaderProps {
@@ -9,14 +9,13 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) => {
-  const [imgError, setImgError] = useState(false);
   const { scrollY } = useScroll();
   
   // Header fades out between 0 and 200px scroll
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
   const pointerEvents = useTransform<number, string>(scrollY, [0, 200], ['auto', 'none']);
 
-  const logoUrl = "https://lh3.googleusercontent.com/pw/AP1GczMeZhP8dhPe1FqZ9pPOAg3Shz_uxFzt6vqktkdykKO9AymDimeLcFQSl_e1KJm3_RIoNWSId27-vq7mWF2iD_W4iwP6tQ1x7APAUnHNYJwj8IYwJGPPqwBq5oXbNAl9gqKBKg_zAvQs0rXaA2wBpb3brw=w2028-h2028-s-no-gm?authuser=0";
+  const logoUrl = "https://res.cloudinary.com/df4ax8siq/image/upload/v1770122693/2_alykqd.png";
 
   return (
     <motion.header 
@@ -29,18 +28,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
             onClick={() => navigateTo('home')}
             className="flex items-center group outline-none"
           >
-            {!imgError ? (
-              <img 
-                src={logoUrl} 
-                alt="Contenaissance Logo" 
-                onError={() => setImgError(true)}
-                className={`h-[80px] sm:h-[100px] md:h-44 w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? 'brightness-125 contrast-125' : ''}`}
-              />
-            ) : (
-              <span className="text-xl font-bold tracking-tighter uppercase font-sora text-white">
-                Contenaissance<span className="text-blue-500">.</span>
-              </span>
-            )}
+            <img 
+              src={logoUrl} 
+              alt="Contenaissance Logo" 
+              className={`h-[80px] sm:h-[100px] md:h-44 w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? 'brightness-125 contrast-125' : ''}`}
+              loading="eager"
+              decoding="async"
+            />
           </button>
         </div>
 
