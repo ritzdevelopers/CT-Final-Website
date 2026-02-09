@@ -183,9 +183,6 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         >
           <div className="flex items-center gap-6">
             <div className="w-12 h-[1px] bg-blue-500/20" />
-            <span className="text-[10px] font-bold tracking-[0.6em] uppercase text-white/40">
-              Vertical Productions
-            </span>
             <div className="w-12 h-[1px] bg-blue-500/20" />
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-center leading-none font-sora text-white">
@@ -199,31 +196,27 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         
         {/* Navigation Buttons */}
         <AnimatePresence>
-          {canScrollLeft && (
-            <motion.button
+          <motion.button
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
               onClick={() => scroll('left')}
-              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+              className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
             >
               <ChevronLeft size={24} />
             </motion.button>
-          )}
         </AnimatePresence>
 
         <AnimatePresence>
-          {canScrollRight && (
-            <motion.button
+          <motion.button
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
               onClick={() => scroll('right')}
-              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl"
+              className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
             >
               <ChevronRight size={24} />
             </motion.button>
-          )}
         </AnimatePresence>
 
         {/* Scrollable Area */}

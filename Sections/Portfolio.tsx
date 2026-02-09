@@ -1,6 +1,6 @@
-
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Reels from './Reels';
 
 interface PortfolioProps {
@@ -53,7 +53,6 @@ const BrandFilmCard: React.FC<{
   );
 };
 
-// Fix: Renamed component from "Brand Films" (invalid name with space) to "Portfolio" to fix export error
 const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
   const brandFilms = useMemo(() => [
     {
@@ -83,47 +82,89 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
     }
   ], []);
 
-  // Double the array for seamless looping
-  const duplicatedFilms = [...brandFilms, ...brandFilms];
+  // Scroll state/refs for manual control
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 20);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = Math.round(el.clientWidth * 0.9);
+    el.scrollBy({
+      left: direction === 'left' ? -amount : amount,
+      behavior: 'smooth'
+    });
+  };
 
   return (
-    <section className="pt-40 md:pt-48 pb-24 max-w-full overflow-hidden relative bg-zinc-950">
+    <section className="pt-40 md:pt-48 pb-32 md:pb-40 max-w-full overflow-hidden relative bg-zinc-950">
+      {/* Brand Films Title - Removed Cinematic Motion text */}
       <div className="mb-16 md:mb-24 flex flex-col items-center px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-4 mb-4"
-        >
-          <div className="w-12 h-[1px] bg-white/20" />
-          <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-white/40">
-            Cinematic Motion
-          </span>
-          <div className="w-12 h-[1px] bg-white/20" />
-        </motion.div>
         <h2 className="text-5xl md:text-9xl font-bold tracking-tighter text-white uppercase font-sora text-center">
           Brand Films
         </h2>
+        <span className="block text-xl md:text-2xl font-medium tracking-tight text-white/70 mt-4">
+          Vertical Productions
+        </span>
       </div>
 
-      <div className="relative w-full overflow-hidden py-10">
+      <div className="relative w-full py-10">
         {/* Depth Fades */}
         <div className="absolute inset-y-0 left-0 w-24 md:w-64 bg-gradient-to-r from-zinc-950 to-transparent z-40 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-24 md:w-64 bg-gradient-to-l from-zinc-950 to-transparent z-40 pointer-events-none" />
 
-        {/* Infinity Loop Marquee */}
-        <motion.div 
-          className="flex gap-6 md:gap-12 w-fit px-6"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ 
-            duration: 40, 
-            repeat: Infinity, 
-            ease: "linear",
-            // Use a higher duration for a slower, more premium feel
-          }}
-          style={{ willChange: "transform" }}
+        {/* Navigation buttons (same style as Reels) */}
+        <AnimatePresence>
+          <motion.button
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            onClick={() => scroll('left')}
+            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${
+              canScrollLeft ? '' : 'opacity-40 pointer-events-none'
+            }`}
+          >
+            <ChevronLeft size={24} />
+          </motion.button>
+        </AnimatePresence>
+
+        <AnimatePresence>
+          <motion.button
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            onClick={() => scroll('right')}
+            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${
+              canScrollRight ? '' : 'opacity-40 pointer-events-none'
+            }`}
+          >
+            <ChevronRight size={24} />
+          </motion.button>
+        </AnimatePresence>
+
+        {/* Manual scroll carousel */}
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-6 md:gap-12 overflow-x-auto no-scrollbar px-6"
         >
-          {duplicatedFilms.map((film, index) => (
-            <BrandFilmCard 
+          {brandFilms.map((film, index) => (
+            <BrandFilmCard
               key={index}
               title={film.title}
               video={film.video}
@@ -132,10 +173,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
               index={index}
             />
           ))}
-        </motion.div>
+          <div className="w-6 md:w-12 flex-shrink-0" />
+        </div>
       </div>
 
-      <div className="h-[1px] w-full bg-white/5 my-32 max-w-[1400px] mx-auto px-6" />
+      {/* Increased spacing between sections */}
+      <div className="h-[1px] w-full bg-white/5 my-80 md:my-96 max-w-[1400px] mx-auto px-6" />
 
       {/* AI Reels Section */}
       <div className="max-w-[1400px] mx-auto">
