@@ -17,12 +17,9 @@ const BrandFilmCard: React.FC<{
   return (
     <motion.div 
       whileHover={{ 
-        scale: 1.02, 
-        y: -5,
-        zIndex: 50,
         boxShadow: "0 20px 40px -10px rgba(255, 255, 255, 0.05)" 
       }}
-      className="relative w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border border-white/5 flex-shrink-0 transition-all cursor-pointer group"
+      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border border-white/5 flex-shrink-0 transition-all cursor-pointer group"
     >
       <video
         autoPlay
@@ -104,7 +101,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
   const scroll = (direction: 'left' | 'right') => {
     const el = scrollRef.current;
     if (!el) return;
-    const amount = Math.round(el.clientWidth * 0.9);
+    const mobilePadding = 32;
+    const amount = window.innerWidth < 768 
+      ? (el.clientWidth - mobilePadding)
+      : 500;
     el.scrollBy({
       left: direction === 'left' ? -amount : amount,
       behavior: 'smooth'
@@ -135,7 +135,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -10 }}
             onClick={() => scroll('left')}
-            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${
+            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-[200] hover:bg-white hover:text-black transition-all shadow-2xl ${
               canScrollLeft ? '' : 'opacity-40 pointer-events-none'
             }`}
           >
@@ -149,7 +149,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             onClick={() => scroll('right')}
-            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${
+            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-[200] hover:bg-white hover:text-black transition-all shadow-2xl ${
               canScrollRight ? '' : 'opacity-40 pointer-events-none'
             }`}
           >
@@ -158,22 +158,24 @@ const Portfolio: React.FC<PortfolioProps> = ({ isDarkMode }) => {
         </AnimatePresence>
 
         {/* Manual scroll carousel */}
-        <div
+        <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-6 md:gap-12 overflow-x-auto no-scrollbar px-6"
+          className="flex gap-0 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
+          style={{ scrollSnapType: 'x mandatory', perspective: '2000px' }}
         >
           {brandFilms.map((film, index) => (
-            <BrandFilmCard
-              key={index}
-              title={film.title}
-              video={film.video}
-              category={film.category}
-              isDarkMode={isDarkMode}
-              index={index}
-            />
+            <div key={index} className="flex-shrink-0" style={{ scrollSnapAlign: 'center' }}>
+              <BrandFilmCard
+                title={film.title}
+                video={film.video}
+                category={film.category}
+                isDarkMode={isDarkMode}
+                index={index}
+              />
+            </div>
           ))}
-          <div className="w-6 md:w-12 flex-shrink-0" />
+          <div className="w-10 md:w-24 flex-shrink-0" />
         </div>
       </div>
 

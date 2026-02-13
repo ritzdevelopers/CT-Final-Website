@@ -1,6 +1,7 @@
 
-import React, { useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Reels from './Reels';
 
 interface PortProps {
@@ -42,17 +43,15 @@ const BrandFilmCard: React.FC<{
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       whileHover={{ 
-        scale: 1.08, 
-        y: -25,
-        zIndex: 100,
-        boxShadow: "0 40px 70px -15px rgba(59, 130, 246, 0.4)" 
+        zIndex: 50,
+        boxShadow: "0 20px 40px -10px rgba(255, 255, 255, 0.08)" 
       }}
       transition={{ 
         type: "spring", 
         stiffness: 300, 
         damping: 20 
       }}
-      className="relative w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
+      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
     >
       {/* Video content - using single ref for perfectly synced audio/video */}
       <video
@@ -61,7 +60,7 @@ const BrandFilmCard: React.FC<{
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-700 group-hover:scale-105"
       >
         <source src={video} type="video/mp4" />
       </video>
@@ -138,7 +137,36 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
     }
   ], []);
 
-  const duplicatedFilms = [...brandFilms, ...brandFilms];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 20);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const mobilePadding = 32;
+    const amount = window.innerWidth < 768 
+      ? (el.clientWidth - mobilePadding)
+      : 500;
+    el.scrollBy({
+      left: direction === 'left' ? -amount : amount,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <section className="pt-32 md:pt-36 pb-6 max-w-full overflow-hidden relative bg-zinc-950">
@@ -163,33 +191,63 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-4 mb-6"
         >
-          <div className="w-16 h-[1px] bg-blue-500/30" />
-          <span className="text-[11px] font-bold tracking-[0.6em] uppercase text-white/40">
+          <div className="w-10 sm:w-12 md:w-16 h-[1px] bg-blue-500/30" />
+          <span className="whitespace-nowrap text-[9px] sm:text-[10px] md:text-[11px] font-bold uppercase text-white/40 tracking-[0.35em] md:tracking-[0.5em] lg:tracking-[0.6em]">
             Featured Productions
           </span>
-          <div className="w-16 h-[1px] bg-blue-500/30" />
+          <div className="w-10 sm:w-12 md:w-16 h-[1px] bg-blue-500/30" />
         </motion.div>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7.5rem] font-bold tracking-tighter text-white uppercase font-sora text-center leading-[0.8] mb-4">
+        <h2 className="text-[clamp(2.25rem,7vw,7.5rem)] font-bold tracking-tighter text-white uppercase font-sora text-center leading-[0.8] mb-4">
           Brand Films
         </h2>
       </div>
 
-      <div className="relative w-full overflow-visible pt-6 pb-1 port-marquee-container">
-        {/* Depth gradients */}
-        <div className="absolute inset-y-0 left-0 w-32 md:w-96 bg-gradient-to-r from-zinc-950 via-zinc-950/40 to-transparent z-40 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 md:w-96 bg-gradient-to-l from-zinc-950 via-zinc-950/40 to-transparent z-40 pointer-events-none" />
+      <div className="relative w-full pt-6 pb-1">
+        <div className="absolute inset-y-0 left-0 w-24 md:w-64 bg-gradient-to-r from-zinc-950 to-transparent z-40 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 md:w-64 bg-gradient-to-l from-zinc-950 to-transparent z-40 pointer-events-none" />
 
-        <div className="port-marquee-inner flex gap-4 sm:gap-8 md:gap-16 px-4 sm:px-8 md:px-12">
-          {duplicatedFilms.map((film, index) => (
-            <BrandFilmCard 
-              key={index}
-              title={film.title}
-              video={film.video}
-              category={film.category}
-              isDarkMode={isDarkMode}
-              index={index}
-            />
+        <AnimatePresence>
+          <motion.button
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            onClick={() => scroll('left')}
+            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-[200] hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronLeft size={24} />
+          </motion.button>
+        </AnimatePresence>
+
+        <AnimatePresence>
+          <motion.button
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            onClick={() => scroll('right')}
+            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-[200] hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronRight size={24} />
+          </motion.button>
+        </AnimatePresence>
+
+        <div 
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-0 sm:gap-8 md:gap-16 overflow-x-auto no-scrollbar px-4 sm:px-8 md:px-12"
+          style={{ scrollSnapType: 'x mandatory' }}
+        >
+          {brandFilms.map((film, index) => (
+            <div key={index} className="flex-shrink-0" style={{ scrollSnapAlign: 'center' }}>
+              <BrandFilmCard 
+                title={film.title}
+                video={film.video}
+                category={film.category}
+                isDarkMode={isDarkMode}
+                index={index}
+              />
+            </div>
           ))}
+          <div className="w-10 md:w-24 flex-shrink-0" />
         </div>
       </div>
 

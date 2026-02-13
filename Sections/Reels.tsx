@@ -73,7 +73,7 @@ const ReelCard: React.FC<{
         transformStyle: "preserve-3d",
         scrollSnapAlign: 'center'
       }}
-      className="relative h-[400px] sm:h-[450px] md:h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-full max-w-[280px] sm:max-w-[320px]"
+      className="relative h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-[calc(100vw-2rem)] sm:w-auto sm:max-w-[320px]"
     >
       <video
         ref={videoRef}
@@ -161,7 +161,10 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = window.innerWidth < 768 ? 300 : 500;
+      const mobilePadding = 32; // px-4 on both sides
+      const scrollAmount = window.innerWidth < 768 
+        ? (scrollRef.current.clientWidth - mobilePadding) 
+        : 500;
       scrollRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
@@ -223,7 +226,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-4 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
+          className="flex gap-0 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
           style={{ 
             scrollSnapType: 'x mandatory',
             perspective: '2000px'

@@ -53,15 +53,15 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
 
       <motion.div 
         style={{ opacity, y }}
-        className="relative z-10 w-full max-w-[1400px] flex flex-col items-center"
+        className="relative z-10 w-full max-w-[1600px] flex flex-col items-center"
       >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-12 lg:gap-16">
-          <div className="flex flex-col items-start">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-4 lg:gap-16">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.1 }}
-              className="flex items-center gap-4 mb-6"
+              className="flex items-center justify-center sm:justify-start gap-2 sm:gap-4 mb-6"
             >
               <div className="w-[1px] h-3 bg-blue-500/50" />
               <span className="text-[9px] md:text-[10px] font-bold tracking-[0.8em] uppercase font-sora text-white/70">
@@ -74,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className="text-5xl sm:text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-Ariel text-white">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-Ariel text-white">
                 Grow
               </h1>
             </motion.div>
@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className="text-5xl sm:text-6xl md:text-9xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-serif-brand text-white">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[10rem] font-medium tracking-[-0.04em] leading-[0.8] font-serif-brand text-white">
                 Brand
               </h1>
             </motion.div>
@@ -93,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5, delay: 1 }}
-              className="text-sm md:text-lg lg:text-xl font-medium italic font-serif-brand lowercase tracking-[0.4em] ml-2 md:ml-4 -mt-1 md:-mt-2 text-white"
+              className="text-sm md:text-lg lg:text-xl font-medium italic font-serif-brand lowercase tracking-[0.4em] ml-0 sm:ml-2 md:ml-4 -mt-1 md:-mt-2 text-white"
             >
               with
             </motion.span>
@@ -103,14 +103,14 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
             initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center select-none w-full sm:w-auto"
+            className="relative flex items-center select-none w-full sm:w-auto justify-center"
           >
-            <span className="text-[8rem] sm:text-[12rem] md:text-[22rem] lg:text-[28rem] font-medium tracking-[-0.05em] leading-none font-Ariel relative bg-clip-text text-transparent bg-gradient-to-br from-white via-blue-300 to-blue-600">
+            <span className="text-[6rem] sm:text-[12rem] md:text-[14rem] lg:text-[28rem] font-medium tracking-[-0.05em] leading-none font-Ariel relative bg-clip-text text-transparent bg-gradient-to-br from-white via-blue-300 to-blue-600">
               AI
               
               <div className="absolute inset-0 pointer-events-none">
                 <motion.div 
-                  className="absolute -top-4 -right-6 md:-top-10 md:-right-20 w-6 h-6 md:w-16 md:h-16 flex items-center justify-center"
+                  className="absolute -top-4 -right-6 md:-top-8 md:-right-10 w-6 h-6 md:w-16 md:h-16 flex items-center justify-center"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2, duration: 1.2, ease: "backOut" }}
@@ -138,7 +138,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="text-xl md:text-3xl max-w-5xl font-light leading-none tracking-tight px-4 text-white"
+            className="text-lg sm:text-xl md:text-3xl max-w-5xl font-light leading-none tracking-tight px-4 text-white"
           >
             Transform your brand with <span className="font-medium text-white">AI-Powered cinematic storytelling.</span>
           </motion.p>
@@ -153,7 +153,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               onClick={() => navigateTo?.('portfolio')}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="group px-14 py-6 rounded-full font-bold uppercase tracking-[0.3em] text-[10px] flex items-center gap-5 transition-all shadow-2xl bg-white text-zinc-950 shadow-white/5"
+              className="group w-full sm:w-auto max-w-[340px] px-10 py-5 rounded-full font-bold uppercase tracking-[0.3em] text-[11px] flex items-center justify-center gap-5 transition-all shadow-2xl bg-white text-zinc-950 shadow-white/5"
             >
               Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </motion.button>

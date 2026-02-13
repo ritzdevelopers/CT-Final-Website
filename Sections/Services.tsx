@@ -105,8 +105,8 @@ const Services: React.FC<ServicesProps> = ({ isDarkMode, isFullPage = false }) =
   ];
 
   return (
-    <section id="services" className={`${isFullPage ? 'pt-40 md:pt-48' : '-mt-8 py-8 md:py-12'} px-6 max-w-[1400px] mx-auto`}>
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-8">
+    <section id="services" className={`${isFullPage ? 'pt-40 md:pt-48' : '-mt-8 py-8 md:py-12'} px-6 max-w-[1600px] mx-auto`}>
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-8" style={{alignItems: 'center'}}>
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
@@ -124,7 +124,7 @@ const Services: React.FC<ServicesProps> = ({ isDarkMode, isFullPage = false }) =
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white"
+            className="text-[clamp(2rem,6vw,7rem)] font-bold tracking-tighter text-white"
           >
             AI Services
           </motion.h2>

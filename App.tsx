@@ -17,7 +17,12 @@ const App: React.FC = () => {
 
   const navigateTo = (page: 'home' | 'portfolio' | 'services' | 'contact') => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const l = (window as any).lenis;
+    if (l && typeof l.scrollTo === 'function') {
+      l.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {

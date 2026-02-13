@@ -24,7 +24,7 @@ const XLogo: React.FC<{ size?: number; className?: string }> = ({ size = 24, cla
   );
 };
 // Live connection to CT Leads Google Sheet
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzsU7MKcykqhg36Z6TzqDS-lYYV8uJNGtEaU9uKGBXAkw-X1byvisoDo3Dk4Dk5tqgc/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby8DOgFwRAa65kLZaBohncDPmIrzPvOP2mf3-Row9835UrUl6QknU_NoOANwivOpps9/exec";
 
 const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => {
   const [focused, setFocused] = useState<string | null>(null);
@@ -35,8 +35,8 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
     fullName: '',
     email: '',
     contactNumber: '',
-    subject: '', // Maps to "Service Interest" in the sheet
-    message: ''  // Maps to "Enquiry" in the sheet
+    subject: '', 
+    message: '' 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -117,13 +117,13 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
 
   return (
     <section className={`${isFullPage ? 'min-h-screen pt-48 pb-24' : '-mt-8 py-12'} px-6 relative overflow-hidden bg-zinc-950`}>
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
         
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full items-center lg:items-start">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tighter mb-8 md:mb-16 text-white leading-[0.9]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tighter mb-8 md:mb-16 text-white leading-[0.9] text-center lg:text-left"
           >
             Let's create the <br /> <span className="font-serif-brand italic font-normal">Next Wave.</span>
           </motion.h2>
@@ -164,7 +164,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
             </div>
           </div>
 
-          <div className="flex items-center flex-wrap gap-6 mt-20 lg:mt-32">
+          <div className="hidden lg:flex items-center flex-wrap gap-6 mt-20 lg:mt-32">
             <p className="text-[11px] uppercase tracking-[0.4em] font-bold text-white/80 mb-2 md:mb-0">Connect</p>
             {socialLinks.map((social, idx) => (
               <motion.a
@@ -191,10 +191,10 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-zinc-900/30 backdrop-blur-sm border border-white/5 rounded-3xl p-8 md:p-12 lg:pl-12 shadow-2xl"
+          className="w-full max-w-[720px] mx-auto lg:mx-0 bg-zinc-900/30 backdrop-blur-sm border border-white/5 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 lg:pl-12 shadow-2xl"
         >
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <form onSubmit={handleSubmit} className="space-y-8 sm:space-y-10 md:space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
               <div className="relative">
                 <label className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Full Name</label>
                 <input 
@@ -205,12 +205,12 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                   onFocus={() => setFocused('name')}
                   onBlur={() => setFocused(null)}
                   type="text" 
-                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-lg placeholder:text-white/60 ${focused === 'name' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
-                  placeholder="Enter your name"
+                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-base md:text-lg placeholder:text-white/60 ${focused === 'name' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
+                  placeholder="Enter your Name"
                 />
               </div>
               <div className="relative">
-                <label className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Email Address</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Email Address</label>
                 <input 
                   required
                   name="email"
@@ -219,15 +219,15 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                   onFocus={() => setFocused('email')}
                   onBlur={() => setFocused(null)}
                   type="email" 
-                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-lg placeholder:text-white/60 ${focused === 'email' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
-                  placeholder="name@company.com"
+                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-base md:text-lg placeholder:text-white/60 ${focused === 'email' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
+                  placeholder="Enter Your Email"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
               <div className="relative">
-                <label className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Contact Number</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Contact Number</label>
                 <input 
                   required
                   name="contactNumber"
@@ -236,12 +236,12 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                   onFocus={() => setFocused('phone')}
                   onBlur={() => setFocused(null)}
                   type="tel" 
-                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-lg placeholder:text-white/60 ${focused === 'phone' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
-                  placeholder="+91 99999 99999"
+                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-base md:text-lg placeholder:text-white/60 ${focused === 'phone' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
+                  placeholder="Enter Your Number"
                 />
               </div>
               <div className="relative">
-                <label className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Service Interest</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Service Interest</label>
                 <input 
                   required
                   name="subject"
@@ -250,14 +250,14 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                   onFocus={() => setFocused('subject')}
                   onBlur={() => setFocused(null)}
                   type="text" 
-                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-lg placeholder:text-white/60 ${focused === 'subject' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
+                  className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all text-white text-base md:text-lg placeholder:text-white/60 ${focused === 'subject' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
                   placeholder="e.g. AI Brand Film..."
                 />
               </div>
             </div>
 
             <div className="relative">
-              <label className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Enquiry Message</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block text-white">Enquiry Message</label>
               <textarea 
                 required
                 name="message"
@@ -266,7 +266,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                 onFocus={() => setFocused('msg')}
                 onBlur={() => setFocused(null)}
                 rows={4}
-                className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all resize-none text-white text-lg leading-relaxed placeholder:text-white/60 ${focused === 'msg' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
+                className={`w-full bg-zinc-900/50 border-2 rounded-xl outline-none px-5 py-4 transition-all resize-none text-white text-base md:text-lg leading-relaxed placeholder:text-white/60 ${focused === 'msg' ? 'border-blue-500/50 shadow-lg shadow-blue-500/20' : 'border-zinc-700/50'}`} 
                 placeholder="Tell us about your brand vision..."
               />
             </div>
@@ -280,7 +280,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                     exit={{ opacity: 0 }}
                     className="flex items-center justify-center gap-3 py-6 bg-emerald-500/20 border-2 border-emerald-500/40 rounded-full text-emerald-300 font-bold uppercase tracking-[0.2em] text-[11px] shadow-lg shadow-emerald-500/20"
                   >
-                    <CheckCircle2 size={20} /> Inquiry Logged Successfully
+                    <CheckCircle2 size={20} /> Enquiry Logged Successfully
                   </motion.div>
                 ) : submitStatus === 'error' ? (
                   <motion.div 
@@ -297,12 +297,12 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[13px] flex items-center justify-center gap-4 transition-all bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-400 hover:to-blue-500 shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed border-2 border-blue-400/30"
+                    className="w-full pt-[1.1rem] pb-[1.1rem] rounded-full font-bold uppercase tracking-[0.3em] text-[10px] sm:text-[10px] md:text-[11px] whitespace-nowrap flex items-center justify-center gap-3 transition-all bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-400 hover:to-blue-500 shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed border-2 border-blue-400/30"
                   >
                     {isSubmitting ? (
                       <>Processing <Loader2 size={20} className="animate-spin" /></>
                     ) : (
-                      <>Dispatch Inquiry <Send size={20} strokeWidth={2} /></>
+                      <>Dispatch Enquiry <Send size={18} strokeWidth={2} /></>
                     )}
                   </motion.button>
                 )}
@@ -311,7 +311,32 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
           </form>
         </motion.div>
 
-        <div className="absolute top-1/4 right-0 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+        {/* Mobile/Tablet Connect below the form; hidden on desktop */}
+        <div className="block md:block lg:hidden col-span-1 px-2">
+          <div className="flex items-center justify-center flex-wrap gap-6 mt-10">
+            <p className="w-full text-center text-[11px] uppercase tracking-[0.4em] font-bold text-white/80">Connect</p>
+            {socialLinks.map((social, idx) => (
+              <motion.a
+                key={`m-${idx}`}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -5, scale: 1.15 }}
+                whileTap={{ scale: 0.95 }}
+                className={`group w-14 h-14 rounded-full border-2 border-white/30 flex items-center justify-center transition-all duration-300 bg-zinc-900/70 hover:shadow-lg hover:shadow-blue-500/30 ${social.bgColor}`}
+                aria-label={social.name}
+              >
+                {social.name === "X (Twitter)" ? (
+                  <social.Icon size={22} className={social.iconColor} />
+                ) : (
+                  <social.Icon size={22} className={social.iconColor} strokeWidth={1.5} />
+                )}
+              </motion.a>
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute top-1/3 right-0 w-[200px] sm:w-[320px] md:w-[520px] h-[200px] sm:h-[320px] md:h-[520px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
       </div>
     </section>
   );
