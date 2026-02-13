@@ -19,17 +19,18 @@ const BrandFilmCard: React.FC<{
       whileHover={{ 
         boxShadow: "0 20px 40px -10px rgba(255, 255, 255, 0.05)" 
       }}
-      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border border-white/5 flex-shrink-0 transition-all cursor-pointer group"
+      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0 transition-all cursor-pointer group"
     >
-      <video
+      <motion.video
         autoPlay
         muted
         loop
         playsInline
+        whileTap={{ scale: 1.06 }}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
       >
         <source src={video} type="video/mp4" />
-      </video>
+      </motion.video>
 
       {/* Cinematic Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80" />
@@ -46,6 +47,7 @@ const BrandFilmCard: React.FC<{
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 rounded-[1rem] md:rounded-[2rem] ring-1 ring-white/10 pointer-events-none" />
     </motion.div>
   );
 };

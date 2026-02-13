@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
   }, []);
 
   return (
-    <motion.header className={`fixed top-0 left-0 w-full z-50 pointer-events-auto transition-colors duration-300 ${scrolled ? 'bg-zinc-950/85 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+    <motion.header className={`fixed top-0 left-0 w-full z-[400] pointer-events-auto transition-colors duration-300 ${scrolled ? 'bg-zinc-950/85 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-3 md:py-5 flex items-center justify-between h-[95px]">
         <div className="flex items-center gap-3">
           <button 
@@ -103,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
           animate={{ y: 0 }}
           exit={{ y: '-100%' }}
           transition={{ type: 'spring', stiffness: 260, damping: 28 }}
-          className="fixed inset-0 z-[150] md:hidden bg-zinc-950 backdrop-blur-md border-b border-white/10 overflow-y-auto"
+          className="fixed inset-0 z-[500] md:hidden bg-zinc-950 backdrop-blur-md border-b border-white/10 overflow-y-auto"
         >
           <div className="flex flex-col min-h-screen">
             <div className="flex items-center justify-between px-6 pt-6">

@@ -51,19 +51,20 @@ const BrandFilmCard: React.FC<{
         stiffness: 300, 
         damping: 20 
       }}
-      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
+      className="relative w-[calc(100vw-2rem)] sm:w-[400px] md:w-[500px] lg:w-[600px] aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl flex-shrink-0 transition-all cursor-pointer group bg-zinc-900"
     >
       {/* Video content - using single ref for perfectly synced audio/video */}
-      <video
+      <motion.video
         ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        whileTap={{ scale: 1.06 }}
         className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-700 group-hover:scale-105"
       >
         <source src={video} type="video/mp4" />
-      </video>
+      </motion.video>
 
       {/* Cinematic Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500" />
@@ -83,6 +84,7 @@ const BrandFilmCard: React.FC<{
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2.5rem] ring-1 ring-white/10 pointer-events-none" />
 
       {/* Modern Audio status indicator */}
       {isHovered && (
@@ -251,9 +253,9 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
         </div>
       </div>
 
-      <div className="h-[1px] w-full bg-white/5 my-1 max-w-[1400px] mx-auto px-6" />
+      
 
-      <div className="max-w-[1400px] mx-auto -mt-2">
+      <div className="max-w-[1400px] mx-auto -mt-10">
         <Reels isDarkMode={isDarkMode} />
       </div>
     </section>
