@@ -117,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
               </button>
             </div>
             <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] rounded-full bg-amber-400/6 blur-3xl" />
-            <div className="flex-1 px-6 py-10 flex flex-col items-center justify-center gap-4">
+            <div className="flex-1 px-6 py-0 md:py-10 flex flex-col items-center justify-center gap-4">
               <div className="mb-4 text-center">
                 <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/40">Navigate</span>
               </div>
