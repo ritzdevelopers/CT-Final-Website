@@ -77,7 +77,7 @@ const ReelCard: React.FC<{
     >
       <video
         ref={videoRef}
-        autoPlay
+        autoPlay  
         muted
         loop
         playsInline
@@ -127,10 +127,10 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       title: "Storytelling",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4"
     },
-    {
-      title: "Studio Vision",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/VID_20251225_173407_545_j0us09.mp4"
-    },
+    // {
+    //   title: "Studio Vision",
+    //   video: "https://res.cloudinary.com/df4ax8siq/video/upload/VID_20251225_173407_545_j0us09.mp4"
+    // },
     {
       title: "AI Model",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4"
@@ -196,7 +196,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
 
       {/* Modern Slider Container */}
       <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
-        
+
         {/* Navigation Buttons */}
         <AnimatePresence>
           <motion.button
@@ -226,7 +226,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-0 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
+          className="flex gap-5 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
           style={{ 
             scrollSnapType: 'x mandatory',
             perspective: '2000px'
@@ -244,7 +244,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           ))}
           
           {/* Spacer to allow for better alignment at end */}
-          <div className="w-10 md:w-24 flex-shrink-0" />
+          {/* <div className="w-10 md:w-24 flex-shrink-0" /> */}
         </div>
 
         {/* Cinematic Edge Faders */}
