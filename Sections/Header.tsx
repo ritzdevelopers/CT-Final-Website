@@ -69,12 +69,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
           </button>
         </div>
 
-        <nav className="hidden md:flex items-center gap-10 text-[11px] font-bold tracking-[0.3em] uppercase">
+        <nav className="hidden md:flex items-center gap-10 text-[13px] font-bold tracking-[0.1em] uppercase">
           {navItems.map(item => (
             <button
               key={item.key}
               onClick={() => navigateTo(item.key)}
-              className={`transition-all duration-300 outline-none nav-glow ${currentPage === item.key ? 'text-blue-500' : 'text-white'}`}
+              className={`transition-all duration-300 outline-none nav-glow ${currentPage === item.key ? 'text-[#ab8922]' : 'text-white'}`}
             >
               {item.label}
             </button>

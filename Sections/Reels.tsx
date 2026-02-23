@@ -2,6 +2,7 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
+import { X } from "lucide-react";
 
 interface ReelsProps {
   isDarkMode: boolean;
@@ -51,18 +52,18 @@ const ReelCard: React.FC<{
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ 
+      transition={{
         opacity: { duration: 0.8, delay: index * 0.1 },
         scale: { duration: 0.8, delay: index * 0.1 }
       }}
-      whileHover={{ 
-        y: -15, 
+      whileHover={{
+        y: -15,
         zIndex: 50,
-        boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.2)" 
+        boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.2)"
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -77,7 +78,7 @@ const ReelCard: React.FC<{
     >
       <video
         ref={videoRef}
-        autoPlay  
+        autoPlay
         muted
         loop
         playsInline
@@ -88,20 +89,20 @@ const ReelCard: React.FC<{
 
       {/* Cinematic Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
-      
+
       {/* Content */}
-      <div 
+      <div
         style={{ transform: "translateZ(30px)" }}
         className="absolute bottom-8 left-0 right-0 text-center px-6"
       >
-        <motion.h4 
+        <motion.h4
           className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white leading-none mb-3 font-sora"
         >
           {title}
         </motion.h4>
-        <motion.div 
+        <motion.div
           animate={{ width: isHovered ? 40 : 20 }}
-          className="h-[1.5px] bg-blue-500 mx-auto rounded-full" 
+          className="h-[1.5px] bg-[#ab8922] mx-auto rounded-full"
         />
       </div>
 
@@ -121,6 +122,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const reels = useMemo(() => [
     {
@@ -162,8 +164,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const mobilePadding = 32; // px-4 on both sides
-      const scrollAmount = window.innerWidth < 768 
-        ? (scrollRef.current.clientWidth - mobilePadding) 
+      const scrollAmount = window.innerWidth < 768
+        ? (scrollRef.current.clientWidth - mobilePadding)
         : 500;
       scrollRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
@@ -178,7 +180,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" /> */}
 
       <div className="mb-4 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -188,7 +190,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
             <div className="w-12 h-[1px] bg-blue-500/20" />
             <div className="w-12 h-[1px] bg-blue-500/20" />
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-center leading-none font-sora text-white">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[clamp(2rem,10vw,11rem)] font-bold tracking-tighter text-center leading-none font-sora text-white">
             AI Reels
           </h2>
         </motion.div>
@@ -200,41 +202,43 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         {/* Navigation Buttons */}
         <AnimatePresence>
           <motion.button
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              onClick={() => scroll('left')}
-              className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
-            >
-              <ChevronLeft size={24} />
-            </motion.button>
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            onClick={() => scroll('left')}
+            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronLeft size={24} />
+          </motion.button>
         </AnimatePresence>
 
         <AnimatePresence>
           <motion.button
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              onClick={() => scroll('right')}
-              className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
-            >
-              <ChevronRight size={24} />
-            </motion.button>
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            onClick={() => scroll('right')}
+            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronRight size={24} />
+          </motion.button>
         </AnimatePresence>
 
         {/* Scrollable Area */}
-        <div 
+        <div
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-5 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
-          style={{ 
+          className="flex gap-5 sm:gap-8 md:gap-6 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
+          style={{
             scrollSnapType: 'x mandatory',
             perspective: '2000px'
           }}
         >
           {reels.map((reel, index) => (
-            <div key={index} className="flex-shrink-0">
-              <ReelCard 
+            <div key={index} className="flex-shrink-0 cursor-pointer"
+              onClick={() => setActiveVideo(reel.video)}
+            >
+              <ReelCard
                 title={reel.title}
                 video={reel.video}
                 isDarkMode={isDarkMode}
@@ -242,16 +246,52 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
               />
             </div>
           ))}
-          
+
           {/* Spacer to allow for better alignment at end */}
           {/* <div className="w-10 md:w-24 flex-shrink-0" /> */}
         </div>
+
 
         {/* Cinematic Edge Faders */}
         <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
         <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
       </div>
+      {/* -----------------------Pop up video------------------- */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-sm flex items-center justify-center px-6 py-10"
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-4xl h-[90vh] bg-black rounded-2xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.7)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveVideo(null)}
+                className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-md transition"
+              >
+                <X size={24} />
+              </button>
 
+              <video
+                src={activeVideo}
+                controls
+                autoPlay
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

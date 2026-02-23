@@ -10,6 +10,10 @@ import Footer from './Sections/Footer';
 import Port from './Sections/Port';
 import SnowEffect from './Sections/SnowEffect';
 import AIQuote from './Sections/AIQuote';
+import BespokeSection from './Sections/BespokeSection';
+import Interactive from './Sections/Interactive';
+import Experts from './Sections/Experts';
+
 
 const App: React.FC = () => {
   const [isDarkMode] = useState(true);
@@ -70,7 +74,10 @@ const App: React.FC = () => {
               <Hero isDarkMode={isDarkMode} navigateTo={navigateTo} />
               <AIQuote isDarkMode={isDarkMode} />
               <Reels isDarkMode={isDarkMode} />
+              <Interactive isDarkMode={isDarkMode} />
               <Services isDarkMode={isDarkMode} />
+              <BespokeSection isDarkMode={isDarkMode} />
+              <Experts isDarkMode={isDarkMode} />
               <Contact isDarkMode={isDarkMode} isFullPage={false} />
             </motion.div>
           )}

@@ -64,7 +64,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               className="flex items-center justify-center sm:justify-start gap-2 sm:gap-4 mb-6"
             >
               <div className="w-[1px] h-3 bg-blue-500/50" />
-              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.8em] uppercase font-sora text-white/70">
+              <span className="text-[9px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-sora text-white/70  [word-spacing:0.7em]">
                 Ritz Gen AI Storytelling Studios
               </span>
             </motion.div>
@@ -93,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5, delay: 1 }}
-              className="text-sm md:text-lg lg:text-xl font-medium italic font-serif-brand lowercase tracking-[0.4em] ml-0 sm:ml-2 md:ml-4 -mt-1 md:-mt-2 text-white"
+              className="text-sm md:text-lg lg:text-xl font-medium italic font-serif-brand lowercase tracking-[0.2em] ml-0 sm:ml-2 md:ml-4 -mt-1 md:-mt-2 text-white"
             >
               with
             </motion.span>
@@ -153,7 +153,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               onClick={() => navigateTo?.('portfolio')}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="group w-full sm:w-auto max-w-[340px] px-10 py-5 rounded-full font-bold uppercase tracking-[0.3em] text-[11px] flex items-center justify-center gap-5 transition-all shadow-2xl bg-white text-zinc-950 shadow-white/5"
+              className="group w-full sm:w-auto max-w-[340px] px-10 py-5 rounded-full font-bold uppercase tracking-[0.1em] text-[11px] flex items-center justify-center gap-5 transition-all shadow-2xl bg-white text-zinc-950 shadow-white/5 hover:bg-[#ab8922] hover:text-white"
             >
               Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </motion.button>
