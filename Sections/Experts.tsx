@@ -9,7 +9,7 @@ export default function Experts() {
             <div className="w-full flex justify-center mb-14 md:mb-20 px-5 md:px-10">
                 <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                     <video
-                        src="https://files.peachworlds.com/website/0e5f237e-0e45-4db9-8798-8e340bff43f0/peachwebsitevideo-2b.mp4"
+                        src="/aivdo.mp4"
                         autoPlay
                         loop
                         muted
@@ -80,7 +80,7 @@ export default function Experts() {
                     <div className="w-full lg:w-1/2 flex justify-center items-center relative mt-8 lg:mt-0">
                         <motion.div className="w-[260px] sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px]">
                             <video
-                                src="dist/assets/vdo.mp4"
+                                src="/vdo.mp4"
                                 autoPlay
                                 loop
                                 muted
