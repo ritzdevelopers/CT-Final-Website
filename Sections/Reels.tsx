@@ -124,15 +124,11 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  const reels = useMemo(() => [
+  const baseReels = useMemo(() => [
     {
       title: "Storytelling",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4"
     },
-    // {
-    //   title: "Studio Vision",
-    //   video: "https://res.cloudinary.com/df4ax8siq/video/upload/VID_20251225_173407_545_j0us09.mp4"
-    // },
     {
       title: "AI Model",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4"
@@ -147,6 +143,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     }
   ], []);
 
+  const reels = [...baseReels, ...baseReels]; // duplicate for infinite illusion
+
   const checkScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
@@ -156,9 +154,34 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   };
 
   useEffect(() => {
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const halfWidth = container.scrollWidth / 2;
+    container.scrollLeft = halfWidth;
+
+    let animationFrame: number;
+    let position = halfWidth;   // track manually
+    const speed = 0.4;          // you can go very slow now
+
+    const autoScroll = () => {
+      position += speed;
+      container.scrollLeft = position;
+
+      if (position >= container.scrollWidth - container.clientWidth) {
+        position = halfWidth;
+      }
+
+      if (position <= 0) {
+        position = halfWidth;
+      }
+
+      animationFrame = requestAnimationFrame(autoScroll);
+    };
+
+    animationFrame = requestAnimationFrame(autoScroll);
+
+    return () => cancelAnimationFrame(animationFrame);
   }, []);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -175,7 +198,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   };
 
   return (
-    <section className="mt-[2.5rem] pt-2 pb-8 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
+    <section className="mt-[2.5rem] pt-2 pb-4 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
       {/* Dynamic Background Glow */}
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" /> */}
 
@@ -230,7 +253,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           onScroll={checkScroll}
           className="flex gap-5 sm:gap-8 md:gap-6 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
           style={{
-            scrollSnapType: 'x mandatory',
+            scrollSnapType: 'none',
             perspective: '2000px'
           }}
         >

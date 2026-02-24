@@ -13,23 +13,30 @@ export default function BespokeSection() {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+    const spreadX = isMobile ? 45 : isTablet ? 70 : 110;
+    const liftY = isMobile ? 15 : 25;
+    const exitX = isMobile ? -800 : -1600;
+    const exitY = isMobile ? 400 : 650;
+
     const ctx = gsap.context(() => {
       const cards = cardsRef.current;
       const total = cards.length;
 
-      // ===== INITIAL STACK STATE =====
+      // Initial state
       gsap.set(cards, {
         x: 0,
         y: 0,
         z: 0,
         rotate: 0,
-        rotateY: 0, // 👈 slight right tilt
+        rotateY: 0,
         rotateX: 0,
         scale: 1,
         transformOrigin: "center center",
       });
 
-      // Proper stacking (last card at bottom)
       cards.forEach((card, i) => {
         card.style.zIndex = String(total - i);
       });
@@ -37,41 +44,41 @@ export default function BespokeSection() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 90",
-          end: "+=1500",
-          scrub: 0.2,
+          start: "top top",
+          end: "+=1800",
+          scrub: 0.5,
           pin: true,
         },
       });
 
-      // ===== PHASE 1 — DEPTH LIFT =====
+      // PHASE 1 – Lift
       tl.to(cards, {
-        y: (i) => -i * 20,
+        y: (i) => -i * liftY,
         rotate: (i) => i * 2,
-        rotateY: -50,   // 👈 slightly more right tilt
-        rotateX: 8,
-        duration: 0.2,
+        rotateY: -15,
+        rotateX: 6,
+        duration: 0.4,
         ease: "power2.out",
       });
 
-      // ===== PHASE 2 — SPREAD FROM BOTTOM CARD =====
+      // PHASE 2 – Spread
       tl.to(cards, {
-        x: (i) => i * 90,
-        y: (i) => -i * 40,
+        x: (i) => i * spreadX,
+        y: (i) => -i * (liftY * 2),
         rotate: (i) => i * -3,
-        rotateY: -59,   // 👈 maintain right tilt
+        rotateY: -55,
         duration: 1,
         ease: "power3.out",
         stagger: {
-          each: 0.08, // 🔥 faster stagger
+          each: 0.06,
           from: "end",
         },
       });
 
-      // ===== PHASE 3 — CINEMATIC EXIT =====
+      // PHASE 3 – Exit
       tl.to(cards, {
-        x: "-=1600",
-        y: "+=650",
+        x: exitX,
+        y: exitY,
         rotate: 0,
         duration: 1,
         ease: "power4.inOut",
@@ -90,30 +97,36 @@ export default function BespokeSection() {
     "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
     "https://images.unsplash.com/photo-1557682250-33bd709cbe85",
     "https://images.unsplash.com/photo-1558655146-d09347e92766",
-
   ];
 
   return (
     <div className="bg-black text-white">
-      <div style={{ height: "20vh" }} />
+      <div className="h-[15vh] md:h-[20vh]" />
 
       <section
         ref={sectionRef}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative h-screen flex items-center justify-center overflow-hidden px-4"
         style={{
-          perspective: "1400px",
-          perspectiveOrigin: "center center",
+          perspective: "1600px",
         }}
       >
-        {/* 3D Cards */}
+        {/* Cards */}
         {images.map((src, index) => (
           <div
             key={index}
             ref={(el) => {
               if (el) cardsRef.current[index] = el;
             }}
-            className="absolute w-[180px] h-[220px] rounded-3xl overflow-hidden
-            shadow-[0_80px_140px_rgba(0,0,0,0.6)]"
+            className="
+              absolute
+              w-[120px] h-[160px]
+              sm:w-[140px] sm:h-[180px]
+              md:w-[170px] md:h-[210px]
+              lg:w-[190px] lg:h-[230px]
+              rounded-2xl md:rounded-3xl
+              overflow-hidden
+              shadow-[0_40px_100px_rgba(0,0,0,0.6)]
+            "
             style={{
               transformStyle: "preserve-3d",
               backfaceVisibility: "hidden",
@@ -127,32 +140,33 @@ export default function BespokeSection() {
           </div>
         ))}
 
-        {/* CENTER CONTENT */}
-        <div className="absolute z-50 text-center max-w-3xl px-6 pointer-events-none top-[70%] -translate-y-1/2 animate-[float_6s_ease-in-out_infinite]">
-          <h1 className="text-4xl md:text-5xl font-light leading-tight tracking-tight">
-            Bespoke <span className="font-medium">PeachWeb</span>
+        {/* Center Content */}
+        <div className="absolute z-50 text-center max-w-xl md:max-w-3xl px-4 pointer-events-none top-[70%] -translate-y-1/2">
+          <h1 className="
+            text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+            font-light leading-tight tracking-tight
+          ">
+            Crafted <span className="font-medium">in 3D</span>
             <br />
-            <span className="font-light opacity-80">
-              3D Sites from $9k
+            <span className="opacity-80 text-base sm:text-lg md:text-xl">
+              Immersive Web Experiences
             </span>
           </h1>
 
           <button
-            className="group relative pointer-events-auto mt-5 px-8 py-4 rounded-2xl
-  border border-white/40 backdrop-blur-md
-  overflow-hidden transition-all duration-500 hover:scale-105"
+            className="
+              group relative pointer-events-auto
+              mt-6 px-6 py-3 md:px-8 md:py-4
+              rounded-xl md:rounded-2xl
+              border border-white/40 backdrop-blur-md
+              overflow-hidden transition-all duration-500 hover:scale-105
+              text-sm md:text-base
+            "
           >
-            {/* Sliding background */}
             <div
               className="absolute inset-0 bg-white
-    translate-x-[-100%] group-hover:translate-x-0
-    transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            />
-
-            {/* Glow pulse */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100
-    bg-white/20 blur-2xl transition-opacity duration-700"
+              translate-x-[-100%] group-hover:translate-x-0
+              transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             />
 
             <span className="relative z-10 text-white group-hover:text-black transition-colors duration-500">

@@ -6,15 +6,37 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export default function Interactive() {
     const sectionRef = useRef<HTMLDivElement>(null);
 
-    // Track scroll only inside this section
     const { scrollYProgress } = useScroll({
         target: sectionRef,
-        offset: ["start start", "end start"]
+        offset: ["start start", "end start"],
     });
+    const opacity = useTransform(
+        scrollYProgress,
+        [0, 0.75, 1],
+        [1, 1, 0]
+    );
 
-    // Fade out on scroll
-    const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
-    const y = useTransform(scrollYProgress, [0, 0.9], [0, -120]);
+    // Move slightly upward at bottom
+    const y = useTransform(
+        scrollYProgress,
+        [0, 0.75, 1],
+        [0, 0, -80]
+    );
+
+    // Slight scale down
+    const scale = useTransform(
+        scrollYProgress,
+        [0, 0.75, 1],
+        [1, 1, 0.95]
+    );
+
+    // Subtle blur
+    const blur = useTransform(
+        scrollYProgress,
+        [0, 0.8, 1],
+        ["0px", "0px", "8px"]
+    );
+    // const y = useTransform(scrollYProgress, [0, 0.9], [0, -120]);
 
     return (
         <section
@@ -22,12 +44,17 @@ export default function Interactive() {
             className="relative bg-black text-white overflow-hidden"
         >
             <motion.div
-                style={{ opacity, y }}
-                className="max-w-full mx-auto px-6 md:px-16 py-20 md:py-10"
+                style={{
+                    opacity,
+                    y,
+                    scale,
+                    filter: blur
+                }}
+                className="max-w-full mx-auto px-4 sm:px-6 md:px-12 lg:px-10 py-5 md:py-20"
             >
                 {/* Top Preview Video */}
-                <div className="w-full flex justify-center mb-20">
-                    <div className="w-full max-w-5xl h-[220px] md:h-[350px] rounded-xl overflow-hidden border border-white/10">
+                <div className="w-full flex justify-center mb-14 md:mb-20">
+                    <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                         <video
                             src="https://files.peachworlds.com/website/0e5f237e-0e45-4db9-8798-8e340bff43f0/peachwebsitevideo-2b.mp4"
                             autoPlay
@@ -39,40 +66,51 @@ export default function Interactive() {
                     </div>
                 </div>
 
-
-                <div className="px-6 md:px-30">
-
+                {/* Content Wrapper */}
+                <div className="w-full">
                     {/* Heading */}
-                    <h1 className="text-[clamp(2rem,10vw,4.5rem)] leading-tight font-light mb-12">
+                    <h1 className="text-[clamp(2rem,8vw,4.5rem)] leading-tight font-light mb-10 md:mb-14 text-left">
                         Launch your Visually Stunning <br />
-                        <span className="font-extrabold ">
+                        <span className="font-extrabold">
                             Interactive 3D Website.
                         </span>
                     </h1>
 
-                    <div className="grid md:grid-cols-2 gap-16 items-center">
+                    {/* Grid Layout */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 
-                        {/* Buttons */}
-                        <div className="flex gap-6 items-center md:justify-end">
-                            <button className="border border-white/30 px-6 py-3 text-sm hover:border-white transition duration-300">
-                                Book Now
+                        {/* Buttons Section */}
+                        <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 items-center md:items-center md:justify-end">
+
+                            <button
+                                className="relative z-10 px-6 py-3 text-sm sm:text-base font-medium border border-white/20 bg-[#0A0D2D] text-white overflow-hidden group transition duration-300 hover:text-black"
+                            >
+                                <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
+                                <span className="relative z-10">Book Now</span>
                             </button>
 
-                            <button className="bg-white text-black px-6 py-3 text-sm font-medium hover:bg-white/90 transition duration-300">
-                                Get started — it's free
+                            <button
+                                className="relative z-10 px-6 py-3 text-sm sm:text-base  border border-white/20 bg-white text-black overflow-hidden group transition duration-300 hover:text-white font-medium"
+                            >
+                                <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
+                                <span className="relative z-10 ">Get started — it's free</span>
                             </button>
+
+                           
                         </div>
 
                         {/* Right Video */}
-                        <div className="w-full h-[400px] md:h-[550px] mt-10">
-                            <video
-                                src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                className="w-full h-full object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
-                            />
+                        <div className="w-full flex justify-center ">
+                            <div className="w-full max-w-sm h-[420px] sm:h-[350px] md:h-[500px]">
+                                <video
+                                    src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-contain md:object-cover "
+                                />
+                            </div>
                         </div>
 
                     </div>

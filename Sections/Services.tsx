@@ -35,7 +35,7 @@ const ServiceCard: React.FC<{
 }> = ({ title, description, delay }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.8,
@@ -45,33 +45,53 @@ const ServiceCard: React.FC<{
       viewport={{ once: false, amount: 0.3 }}
       className="relative group"
     >
-      {/* Outer subtle glow */}
-      <div className="absolute -inset-[1px] rounded-[32px] opacity-40 group-hover:opacity-80 transition duration-500 pointer-events-none" />
+      {/* Outer Glow */}
+      <div className="absolute -inset-[1px] rounded-[28px] opacity-30 
+    group-hover:opacity-70 transition duration-500 
+     
+    pointer-events-none"
+      />
 
       {/* Main Card */}
-      <div className="relative rounded-[32px] border border-[#3A3A3E] p-10 md:p-6 overflow-hidden transition-all duration-500 group-hover:border-zinc-700 group-hover:shadow-2xl group-hover:shadow-blue-500/10">
+      <div className="relative rounded-[28px] border border-[#3A3A3E] 
+    p-5 sm:p-6 md:p-8 lg:p-5 text-justify
+    overflow-hidden transition-all duration-500 
+    group-hover:border-zinc-700 
+    group-hover:shadow-2xl group-hover:shadow-blue-500/10"
+      >
 
-        {/* Blue Pill */}
-        <div className="p-10 bg-zinc-900/30 backdrop-blur-sm rounded-[32px] opacity-1">
-          <div className="inline-block mb-6">
-            <span className="px-4 py-2 text-sm font-semibold rounded-full bg-[#3B82F6] text-white">
+        {/* Inner Glass Container */}
+        <div className="font-sora bg-zinc-900/40 backdrop-blur-md 
+      rounded-[22px] 
+      p-5 sm:p-6 md:p-8 lg:p-8"
+        >
+          {/* Badge */}
+          <div className="inline-block mb-4 sm:mb-5">
+            <span className="font-sora px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full bg-[#3B82F6] text-white">
               Use Case
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-semibold text-white mb-2 tracking-tight">
+          <h3 className="font-sora text-lg sm:text-xl md:text-2xl lg:text-3xl 
+        font-semibold text-white mb-3 tracking-tight"
+          >
             {title}
           </h3>
 
           {/* Description */}
-          <p className="text-white/60 text-sm md:text-md leading-relaxed max-w-lg text-justify">
+          <p className="font-sora text-xs sm:text-sm md:text-base 
+        text-white/60 leading-relaxed"
+          >
             {description}
           </p>
 
           {/* Explore */}
-          <div className="mt-5">
-            <span className="text-yellow-500 font-medium text-sm flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+          <div className="mt-5 sm:mt-6">
+            <span className="text-yellow-500 font-medium text-xs sm:text-sm 
+          flex items-center gap-2 
+          group-hover:gap-3 transition-all duration-300"
+            >
               Explore More
               <span className="transition-transform duration-300 group-hover:translate-x-2">
                 →
@@ -146,9 +166,8 @@ const Services: React.FC<ServicesProps> = ({
     <section
       id="services"
       ref={sectionRef}
-      className={`relative overflow-hidden min-h-[150vh] bg-black ${
-        isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
-      } px-5 md:px-20 max-w-[1600px] mx-auto`}
+      className={`relative overflow-hidden min-h-[150vh] bg-black ${isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
+        } px-5 md:px-20 max-w-[1600px] mx-auto`}
     >
       {/* Header */}
       <div className="relative z-10 flex flex-col mb-14">
