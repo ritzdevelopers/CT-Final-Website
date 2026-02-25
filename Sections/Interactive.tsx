@@ -6,7 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Interactive() {
+interface InteractiveProps {
+    isDarkMode?: boolean;
+}
+
+export default function Interactive({ isDarkMode }: InteractiveProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
     const previewRef = useRef<HTMLDivElement>(null);
     useEffect(() => {

@@ -1,180 +1,289 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  RoundedBox,
+  ContactShadows,
+  AdaptiveDpr,
+  AdaptiveEvents,
+} from "@react-three/drei";
+import { useRef, useEffect, useState } from "react";
+import * as THREE from "three";
 
-gsap.registerPlugin(ScrollTrigger);
 
-export default function BespokeSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+// ================= CARD =================
+function Card({ url, index, progress }) {
+  const CARD_WIDTH = 2.1;
+  const CARD_HEIGHT = 3.6;
+  const CARD_DEPTH = 0.05;
+  const CARD_RADIUS = 0.1;
+  const ref = useRef<THREE.Mesh | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [texture, setTexture] = useState<THREE.VideoTexture | null>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const video = document.createElement("video");
 
-    const isMobile = window.innerWidth < 768;
-    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    video.src = url;
+    video.crossOrigin = "anonymous";
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.autoplay = true;
 
-    const spreadX = isMobile ? 45 : isTablet ? 70 : 110;
-    const liftY = isMobile ? 15 : 25;
-    const exitX = isMobile ? -800 : -1600;
-    const exitY = isMobile ? 400 : 650;
+    videoRef.current = video;
 
-    const ctx = gsap.context(() => {
-      const cards = cardsRef.current;
-      const total = cards.length;
+    const tex = new THREE.VideoTexture(video);
 
-      // Initial state
-      gsap.set(cards, {
-        x: 0,
-        y: 0,
-        z: 0,
-        rotate: 0,
-        rotateY: 0,
-        rotateX: 0,
-        scale: 1,
-        transformOrigin: "center center",
-      });
+   
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = false;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
 
-      cards.forEach((card, i) => {
-        card.style.zIndex = String(total - i);
-      });
+    const applyCoverFit = () => {
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+      if (!videoWidth || !videoHeight) return;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=1800",
-          scrub: 0.5,
-          pin: true,
-        },
-      });
+      const cardAspect = CARD_WIDTH / CARD_HEIGHT;
+      const videoAspect = videoWidth / videoHeight;
 
-      // PHASE 1 – Lift
-      tl.to(cards, {
-        y: (i) => -i * liftY,
-        rotate: (i) => i * 2,
-        rotateY: -15,
-        rotateX: 6,
-        duration: 0.4,
-        ease: "power2.out",
-      });
+      // Same feel as CSS object-cover: fill card, crop overflow.
+      if (videoAspect > cardAspect) {
+        const repeatX = cardAspect / videoAspect;
+        tex.repeat.set(repeatX, 1);
+        tex.offset.set((1 - repeatX) / 2, 0);
+      } else {
+        const repeatY = videoAspect / cardAspect;
+        tex.repeat.set(1, repeatY);
+        tex.offset.set(0, (1 - repeatY) / 2);
+      }
+      tex.needsUpdate = true;
+    };
 
-      // PHASE 2 – Spread
-      tl.to(cards, {
-        x: (i) => i * spreadX,
-        y: (i) => -i * (liftY * 2),
-        rotate: (i) => i * -3,
-        rotateY: -55,
-        duration: 1,
-        ease: "power3.out",
-        stagger: {
-          each: 0.06,
-          from: "end",
-        },
-      });
+    video.addEventListener("loadedmetadata", applyCoverFit);
+    if (video.readyState >= 1) applyCoverFit();
 
-      // PHASE 3 – Exit
-      tl.to(cards, {
-        x: exitX,
-        y: exitY,
-        rotate: 0,
-        duration: 1,
-        ease: "power4.inOut",
-      });
+    setTexture(tex);
 
-    }, sectionRef);
+    video.play().catch(() => {});
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      video.removeEventListener("loadedmetadata", applyCoverFit);
+      video.pause();
+    };
+  }, [url]);
 
-  const images = [
-    "https://images.unsplash.com/photo-1557682250-33bd709cbe85",
-    "https://images.unsplash.com/photo-1558655146-d09347e92766",
-    "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
-    "https://images.unsplash.com/photo-1551434678-e076c223a692",
-    "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-    "https://images.unsplash.com/photo-1557682250-33bd709cbe85",
-    "https://images.unsplash.com/photo-1558655146-d09347e92766",
-  ];
+  // 🔊 Hover → sound ON
+  const handlePointerOver = () => {
+    if (videoRef.current) videoRef.current.muted = false;
+  };
+
+  const handlePointerOut = () => {
+    if (videoRef.current) videoRef.current.muted = true;
+  };
+
+  useFrame(() => {
+    if (!ref.current) return;
+
+    const delay = index * 0.12;
+    const t = progress - delay;
+
+    if (t < 0 || t > 1.2) {
+      ref.current.visible = false;
+      return;
+    }
+
+    ref.current.visible = true;
+
+    // ⭐ Orbit motion (RIGHT → LEFT)
+    const radius = 9;
+
+    const angle = THREE.MathUtils.lerp(
+      -Math.PI * 0.6,
+      Math.PI * 0.6,
+      t
+    );
+
+    const x = Math.sin(angle) * radius;
+    const z = Math.cos(angle) * radius - radius;
+
+    ref.current.position.set(x, -0.2, z);
+
+    // ⭐ 3D rotation
+    ref.current.rotation.y = angle * 0.9;
+    ref.current.rotation.x = 0.05;
+
+    // ⭐ Focus scale
+    const focus = 1 - Math.abs(t - 0.5) * 1.6;
+    const scale = 0.9 + focus * 0.5;
+
+    ref.current.scale.setScalar(scale);
+  });
+
+  if (!texture) return null;
 
   return (
-    <div className="bg-zinc-950 text-white">
-      <div className="h-[15vh] md:h-[20vh]" />
-
-      <section
-        ref={sectionRef}
-        className="relative h-screen flex items-center justify-center overflow-hidden px-4"
-        style={{
-          perspective: "1600px",
-        }}
+    <mesh
+      ref={ref}
+      castShadow
+      receiveShadow
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+    >
+      {/* ⭐ Debit card style — long slim rectangle */}
+      <RoundedBox
+        args={[CARD_WIDTH, CARD_HEIGHT, CARD_DEPTH]}
+        radius={CARD_RADIUS}
+        smoothness={4}
       >
-        {/* Cards */}
-        {images.map((src, index) => (
-          <div
-            key={index}
-            ref={(el) => {
-              if (el) cardsRef.current[index] = el;
-            }}
-            className="
-              absolute
-              w-[120px] h-[160px]
-              sm:w-[140px] sm:h-[180px]
-              md:w-[170px] md:h-[210px]
-              lg:w-[190px] lg:h-[230px]
-              rounded-2xl md:rounded-3xl
-              overflow-hidden
-              shadow-[0_40px_100px_rgba(0,0,0,0.6)]
-            "
-            style={{
-              transformStyle: "preserve-3d",
-              backfaceVisibility: "hidden",
-            }}
-          >
-            <img
-              src={`${src}?auto=format&fit=crop&w=1000&q=90`}
-              className="w-full h-full object-cover"
-              alt=""
-            />
-          </div>
+        <meshStandardMaterial color="#0f0f0f" roughness={0.75} metalness={0} />
+      </RoundedBox>
+
+      {/* Video only on front face for clean card look */}
+      <mesh position={[0, 0, CARD_DEPTH / 2 + 0.002]}>
+        <planeGeometry args={[CARD_WIDTH - 0.08, CARD_HEIGHT - 0.08]} />
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      </mesh>
+    </mesh>
+  );
+}
+
+function CardsScene({ images, progress }) {
+  return (
+    <>  
+    
+
+      <ambientLight intensity={0.5} />
+
+      <directionalLight
+        position={[6, 10, 6]}
+        intensity={2.5}
+        castShadow
+      />
+
+      <ContactShadows
+        position={[0, -3, 0]}
+        opacity={0.6}
+        scale={20}
+        blur={2.8}
+      />
+
+      <group>
+        {images.map((img, i) => (
+          <Card key={i} url={img} index={i} progress={progress} />
         ))}
+      </group>
+    </>
+  );
+}
 
-        {/* Center Content */}
-        <div className="absolute z-50 text-center max-w-xl md:max-w-3xl px-4 pointer-events-none top-[70%] -translate-y-1/2">
-          <h1 className="
-            text-2xl sm:text-3xl md:text-4xl lg:text-5xl
-            font-light leading-tight tracking-tight
-          ">
-            Crafted <span className="font-medium">in 3D</span>
-            <br />
-            <span className="opacity-80 text-base sm:text-lg md:text-xl">
-              Immersive Web Experiences
-            </span>
-          </h1>
 
-          <button
-            className="
-              group relative pointer-events-auto
-              mt-6 px-6 py-3 md:px-8 md:py-4
-              rounded-xl md:rounded-2xl
-              border border-white/40 backdrop-blur-md
-              overflow-hidden transition-all duration-500 hover:scale-105
-              text-sm md:text-base
-            "
+// ================= MAIN SECTION =================
+interface BespokeSectionProps {
+  isDarkMode?: boolean;
+}
+
+export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
+  const images = [
+    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4",
+    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4",
+    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4",
+    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
+  ];
+
+  const sectionRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      const total = rect.height - vh;
+      const scrolled = THREE.MathUtils.clamp(-rect.top, 0, total);
+
+      const p = total === 0 ? 0 : scrolled / total;
+
+      setProgress(p);
+
+      // 🚀 Lock scroll until animation finishes
+      if (p < 0.98) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  return (
+    <div className="bg-black text-white">
+
+      {/* Spacer above (like Peach) */}
+      <div style={{ height: "30vh" }} />
+
+      {/* ===== STICKY SECTION ===== (taller = slower card movement per scroll) */}
+      <section ref={sectionRef} className="relative h-[320vh]">
+
+        <div className="sticky top-[80px] h-[calc(100vh-80px)] overflow-hidden">
+
+          {/* ===== 3D CANVAS ===== */}
+          <Canvas
+            shadows
+            camera={{ position: [0, 1.1, 7.5], fov: 38 }}
+            gl={{antialias: true}}
+            className="absolute inset-0 pt-6"
           >
-            <div
-              className="absolute inset-0 bg-white
-              translate-x-[-100%] group-hover:translate-x-0
-              transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            />
+            <AdaptiveDpr pixelated />
+            <AdaptiveEvents />
 
-            <span className="relative z-10 text-white group-hover:text-black transition-colors duration-500">
-              Book a Call
-            </span>
-          </button>
+            <CardsScene
+              images={images}
+              progress={progress}
+            />
+          </Canvas>
+
+          {/* ===== CENTER HERO ===== */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="z-50 text-center max-w-3xl px-6">
+
+              <h1 className="text-4xl md:text-5xl font-light leading-tight tracking-tight">
+                Visually<span className="font-medium">Stunning</span> 
+                <br />
+                <span className="opacity-80">
+                  3D Websites with Power of AI
+                </span>
+              </h1>
+
+              <button className="pointer-events-auto mt-6 px-8 py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
+                Book a Call
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </section>
+
+      {/* Spacer below */}
+      <div style={{ height: "40vh" }} />
+
     </div>
   );
 }
