@@ -56,7 +56,7 @@ export default function Interactive() {
                 <div className="w-full flex justify-center mb-14 md:mb-20">
                     <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                         <video
-                            src="https://files.peachworlds.com/website/0e5f237e-0e45-4db9-8798-8e340bff43f0/peachwebsitevideo-2b.mp4"
+                            src="/aivdo.mp4"
                             autoPlay
                             loop
                             muted
