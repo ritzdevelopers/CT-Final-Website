@@ -5,8 +5,8 @@ import { div } from "framer-motion/client";
 
 export default function Experts() {
     return (
-        <div>
-            <div className="w-full flex justify-center mb-14 md:mb-20 px-5 md:px-10">
+        <div className="bg-zinc-950">
+            <div className="w-full  flex justify-center mb-14 md:mb-20 px-5 md:px-10">
                 <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                     <video
                         src="/aivdo.mp4"
@@ -23,7 +23,7 @@ export default function Experts() {
                     className="
                     max-w-full mx-auto
                     px-6 sm:px-8 lg:px-16
-                    py-16 sm:py-20 lg:py-28
+                    py-5 sm:py-20 lg:py-16
                     flex flex-col-reverse lg:flex-row
                     items-center justify-between
                     gap-12 lg:gap-0
@@ -77,8 +77,8 @@ export default function Experts() {
                         </div>
                     </div>
                     {/* Video section */}
-                    <div className="w-full lg:w-1/2 flex justify-center items-center relative mt-8 lg:mt-0">
-                        <motion.div className="w-[260px] sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px]">
+                    <div className="w-full lg:w-1/2 flex justify-center items-center relative mt-1 lg:mt-0">
+                        <motion.div className="w-full sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px]">
                             <video
                                 src="/vdo.mp4"
                                 autoPlay

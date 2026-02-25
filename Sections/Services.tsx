@@ -43,7 +43,7 @@ const ServiceCard: React.FC<{
         ease: [0.16, 1, 0.3, 1]
       }}
       viewport={{ once: false, amount: 0.3 }}
-      className="relative group"
+      className="relative group bg-zinc-950"
     >
       {/* Outer Glow */}
       <div className="absolute -inset-[1px] rounded-[28px] opacity-30 
@@ -166,7 +166,7 @@ const Services: React.FC<ServicesProps> = ({
     <section
       id="services"
       ref={sectionRef}
-      className={`relative overflow-hidden min-h-[150vh] bg-black ${isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
+      className={`relative overflow-hidden min-h-[150vh] bg-zinc-950 ${isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
         } px-5 md:px-20 max-w-[1600px] mx-auto`}
     >
       {/* Header */}

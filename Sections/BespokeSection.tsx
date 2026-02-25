@@ -100,7 +100,7 @@ export default function BespokeSection() {
   ];
 
   return (
-    <div className="bg-black text-white">
+    <div className="bg-zinc-950 text-white">
       <div className="h-[15vh] md:h-[20vh]" />
 
       <section

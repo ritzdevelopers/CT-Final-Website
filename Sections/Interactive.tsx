@@ -41,7 +41,7 @@ export default function Interactive() {
     return (
         <section
             ref={sectionRef}
-            className="relative bg-black text-white overflow-hidden"
+            className="relative bg-zinc-950 text-white overflow-hidden"
         >
             <motion.div
                 style={{
