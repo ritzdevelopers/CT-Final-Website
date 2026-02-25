@@ -1,121 +1,110 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Interactive() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const previewRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (!sectionRef.current || !previewRef.current) return;
 
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start start", "end start"],
-    });
-    const opacity = useTransform(
-        scrollYProgress,
-        [0, 0.75, 1],
-        [1, 1, 0]
-    );
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.30, //  smaller from start
+                    borderRadius: "30px",
+                },
+                {
+                    scale: 1,
+                    borderRadius: "0px",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=250%", //  more scroll distance
+                        scrub: 1.5,     //  smoother interpolation
+                        pin: ".pin-wrapper",
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+        });
 
-    // Move slightly upward at bottom
-    const y = useTransform(
-        scrollYProgress,
-        [0, 0.75, 1],
-        [0, 0, -80]
-    );
-
-    // Slight scale down
-    const scale = useTransform(
-        scrollYProgress,
-        [0, 0.75, 1],
-        [1, 1, 0.95]
-    );
-
-    // Subtle blur
-    const blur = useTransform(
-        scrollYProgress,
-        [0, 0.8, 1],
-        ["0px", "0px", "8px"]
-    );
-    // const y = useTransform(scrollYProgress, [0, 0.9], [0, -120]);
+        return () => ctx.revert();
+    }, []);
 
     return (
         <section
             ref={sectionRef}
-            className="relative bg-zinc-950 text-white overflow-hidden"
+            className="relative bg-zinc-950 text-white"
         >
-            <motion.div
-                style={{
-                    opacity,
-                    y,
-                    scale,
-                    filter: blur
-                }}
-                className="max-w-full mx-auto px-4 sm:px-6 md:px-12 lg:px-10 py-5 md:py-20"
-            >
-                {/* Top Preview Video */}
-                <div className="w-full flex justify-center mb-14 md:mb-20">
-                    <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
-                        <video
-                            src="/aivdo.mp4"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
+            {/* TOP PREVIEW */}
+            <div className="pin-wrapper relative w-full flex justify-center py-24 z-10">
+                <div
+                    ref={previewRef}
+                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform"
+                    style={{ transformOrigin: "center center" }}
+                >
+                    <iframe
+                        src="https://www.youtube.com/embed/ibNrPjETR_k?autoplay=1&mute=1&loop=1&playlist=ibNrPjETR_k&controls=0&modestbranding=1"
+                        className="w-full h-full object-cover"
+                        allow="autoplay; fullscreen"
+                        allowFullScreen
+                    />
                 </div>
+            </div>
 
-                {/* Content Wrapper */}
-                <div className="w-full">
-                    {/* Heading */}
-                    <h1 className="text-[clamp(2rem,8vw,4.5rem)] leading-tight font-light mb-10 md:mb-14 text-left">
-                        Launch your Visually Stunning <br />
-                        <span className="font-extrabold">
-                            Interactive 3D Website.
-                        </span>
-                    </h1>
+            {/* CONTENT BELOW */}
+            <div className="relative z-20 max-w-6xl mx-auto px-6 py-8">
+                <h1 className="text-[clamp(2rem,8vw,4.5rem)] leading-tight font-light mb-14">
+                    Launch your Visually Stunning <br />
+                    <span className="font-extrabold">
+                        Interactive 3D Website.
+                    </span>
+                </h1>
 
-                    {/* Grid Layout */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div className="flex flex-col sm:flex-row gap-6 items-center md:justify-end">
 
-                        {/* Buttons Section */}
-                        <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 items-center md:items-center md:justify-end">
+                        {/* Book Now */}
+                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-white group">
+                            <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
+                                Book Now
+                            </span>
+                        </button>
 
-                            <button
-                                className="relative z-10 px-6 py-3 text-sm sm:text-base font-medium border border-white/20 bg-[#0A0D2D] text-white overflow-hidden group transition duration-300 hover:text-black"
-                            >
-                                <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
-                                <span className="relative z-10">Book Now</span>
-                            </button>
-
-                            <button
-                                className="relative z-10 px-6 py-3 text-sm sm:text-base  border border-white/20 bg-white text-black overflow-hidden group transition duration-300 hover:text-white font-medium"
-                            >
-                                <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
-                                <span className="relative z-10 ">Get started — it's free</span>
-                            </button>
-
-                           
-                        </div>
-
-                        {/* Right Video */}
-                        <div className="w-full flex justify-center ">
-                            <div className="w-full max-w-sm h-[420px] sm:h-[350px] md:h-[500px]">
-                                <video
-                                    src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-full object-contain md:object-cover "
-                                />
-                            </div>
-                        </div>
+                        {/* Get Started */}
+                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-black bg-white group">
+                            <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                            <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
+                                Get started — it's free
+                            </span>
+                        </button>
 
                     </div>
+
+                    <div className="w-full flex justify-center">
+                        <div className="w-full max-w-sm h-[420px]">
+                            <video
+                                src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }

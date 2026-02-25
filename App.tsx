@@ -13,6 +13,7 @@ import AIQuote from './Sections/AIQuote';
 import BespokeSection from './Sections/BespokeSection';
 import Interactive from './Sections/Interactive';
 import Experts from './Sections/Experts';
+import MosaicSection from './Sections/MosaicSection';
 
 
 const App: React.FC = () => {
@@ -55,12 +56,12 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <Header 
-        isDarkMode={isDarkMode} 
+      <Header
+        isDarkMode={isDarkMode}
         currentPage={currentPage}
         navigateTo={navigateTo}
       />
-      
+
       <main className="relative">
         <AnimatePresence mode="wait">
           {currentPage === 'home' && (
@@ -78,6 +79,7 @@ const App: React.FC = () => {
               <Services isDarkMode={isDarkMode} />
               <BespokeSection isDarkMode={isDarkMode} />
               <Experts isDarkMode={isDarkMode} />
+              <MosaicSection isDarkMode={isDarkMode}/>
               <Contact isDarkMode={isDarkMode} isFullPage={false} />
             </motion.div>
           )}
