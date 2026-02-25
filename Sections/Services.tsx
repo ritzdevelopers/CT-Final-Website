@@ -43,7 +43,7 @@ const ServiceCard: React.FC<{
         ease: [0.16, 1, 0.3, 1]
       }}
       viewport={{ once: false, amount: 0.3 }}
-      className="relative group bg-zinc-950"
+      className="relative group "
     >
       {/* Outer Glow */}
       <div className="absolute -inset-[1px] rounded-[28px] opacity-30 
@@ -61,9 +61,7 @@ const ServiceCard: React.FC<{
       >
 
         {/* Inner Glass Container */}
-        <div className="font-sora bg-zinc-900/40 backdrop-blur-md 
-      rounded-[22px] 
-      p-5 sm:p-6 md:p-8 lg:p-8"
+        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-5 sm:p-6 md:p-8 lg:p-8"
         >
           {/* Badge */}
           <div className="inline-block mb-4 sm:mb-5">
