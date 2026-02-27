@@ -16,7 +16,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
   const visualItems = [1, 2, 3, 4];
 
   return (
-    <section className="pt-0 pb-6 md:pb-8 px-0 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
+    <section className="pt-0 pb-2 md:pb-2 px-0 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
       <div className="max-w-[1600px] mx-auto text-center relative z-20 w-full flex flex-col items-center px-6">
         {/* Quote Header Text */}
         <motion.div
@@ -93,7 +93,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
               </div>
 
               {/* Decorative label for card separation */}
-              <div className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+              <div className=" text-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                 <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-blue-400">
                   Step {item}
                 </span>
@@ -112,7 +112,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
         initial={{ scaleY: 0 }}
         whileInView={{ scaleY: 1 }}
         viewport={{ once: true }}
-        className="mt-4 w-[1px] h-8 bg-gradient-to-b from-white/20 to-transparent"
+        className=""
       />
     </section>
   );

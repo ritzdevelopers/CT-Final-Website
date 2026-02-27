@@ -26,7 +26,7 @@ function Card({ url, index, progress }) {
 
     video.src = url;
     video.crossOrigin = "anonymous";
-    video.loop = true;
+    video.loop =   true;
     video.muted = true;
     video.playsInline = true;
     video.autoplay = true;
@@ -233,7 +233,7 @@ export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
   }, []);
 
   return (
-    <div className="bg-black text-white">
+    <div className="bg-zinc-950 text-white">
 
       {/* Spacer above (like Peach) */}
       <div style={{ height: "30vh" }} />

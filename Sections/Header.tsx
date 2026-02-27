@@ -14,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
   const logoUrl = "https://res.cloudinary.com/df4ax8siq/image/upload/v1770122693/2_alykqd.png";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const navItems: Array<{ key: 'home' | 'services' | 'portfolio' | 'contact'; label: string }> = [
     { key: 'home', label: 'Studio' },
     { key: 'services', label: 'Services' },
@@ -45,23 +46,48 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
   }, [mobileOpen]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    let lastScrollY = window.scrollY;
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setScrolled(currentScrollY > 8);
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHidden(true);   // scrolling down
+      } else {
+        setHidden(false);  // scrolling up
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <motion.header className={`fixed top-0 left-0 w-full z-[400] pointer-events-auto transition-colors duration-300 ${scrolled ? 'bg-zinc-950/85 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+    <motion.header
+      animate={{
+        y: hidden ? "-60px" : "0px",
+        opacity: hidden ? 0 : 1,
+        pointerEvents: hidden ? "none" : "auto"
+      }}
+      transition={{ y: { duration: 0.4, ease: "easeInOut" }, opacity: { duration: 0.35, ease: "easeInOut" } }}
+      className={`fixed top-0 left-0 w-full z-[400] transition-colors duration-300 ${scrolled
+          ? 'bg-zinc-950/85 backdrop-blur-md border-b border-white/10'
+          : 'bg-transparent'
+        } ${hidden ? 'pointer-events-none' : 'pointer-events-auto'}`}
+    >
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-1 md:py-5 flex items-center justify-between h-[95px]">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => navigateTo('home')}
             className="flex items-center group outline-none"
           >
-            <img 
-              src={logoUrl} 
-              alt="Contenaissance Logo" 
+            <img
+              src={logoUrl}
+              alt="Contenaissance Logo"
               className={`h-[80px] sm:h-[100px] md:h-[9rem] w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? 'brightness-125 contrast-125' : ''}`}
               loading="eager"
               decoding="async"
@@ -69,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, currentPage, navigateTo }) 
           </button>
         </div>
 
-        <nav className="hidden md:flex items-center gap-10 text-[13px] font-bold tracking-[0.1em] uppercase">
+        <nav className="hidden md:flex items-center gap-10 text-[13px] font-bold tracking-[0.05em] uppercase">
           {navItems.map(item => (
             <button
               key={item.key}

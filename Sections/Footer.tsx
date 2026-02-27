@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, currentPage, navigateTo }) 
 
   return (
     <>
-      <footer className="bg-zinc-950 border-t border-white/5 py-12" />
+      <footer className="bg-zinc-950 pt-5 " />
       <div className="fixed bottom-5 right-5 z-[300]">
         <motion.button
           onClick={scrollToTop}

@@ -6,7 +6,7 @@ import { div } from "framer-motion/client";
 export default function Experts() {
     return (
         <div className="bg-zinc-950">
-            <div className="w-full  flex justify-center mb-14 md:mb-20 px-5 md:px-10">
+            <div className="w-full  flex justify-center mb-14 md:mb-10 px-5 md:px-10">
                 <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                     <video
                         src="/aivdo.mp4"
@@ -23,7 +23,7 @@ export default function Experts() {
                     className="
                     max-w-full mx-auto
                     px-6 sm:px-8 lg:px-16
-                    py-5 sm:py-20 lg:py-16
+                    py-5 sm:py-10 lg:pb-16
                     flex flex-col-reverse lg:flex-row
                     items-center justify-between
                     gap-12 lg:gap-0
@@ -34,13 +34,13 @@ export default function Experts() {
                         <h1
                             className="
                             font-light leading-[1.1] tracking-tight
-                            text-[clamp(2rem,5vw,3.2rem)]
+                            text-[clamp(2rem,5vw,2.5rem)]
                             mb-6
                         "
                         >
-                            Get your <span className="font-medium">3D Website</span>
+                            Get your <span className="font-bold">3D Website</span> with
                             <br />
-                            <span className="opacity-80">with our Experts.</span>
+                            <span className="opacity-80"> Our Expert Designers.</span>
                         </h1>
                         <p className="text-white/70 text-sm sm:text-base max-w-md mb-8">
                             We craft immersive, high-end 3D experiences that elevate your brand

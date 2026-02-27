@@ -209,10 +209,10 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           viewport={{ once: true }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="flex items-center gap-6">
+          {/* <div className="flex items-center gap-6">
             <div className="w-12 h-[1px] bg-blue-500/20" />
             <div className="w-12 h-[1px] bg-blue-500/20" />
-          </div>
+          </div> */}
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[clamp(2rem,10vw,11rem)] font-bold tracking-tighter text-center leading-none font-sora text-white">
             AI Reels
           </h2>

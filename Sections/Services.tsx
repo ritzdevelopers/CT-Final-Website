@@ -25,7 +25,7 @@ interface ServicesProps {
 }
 
 /* ========================= */
-/* ✅ ORIGINAL CARD (UNCHANGED STYLE) */
+/* ORIGINAL CARD (UNCHANGED STYLE) */
 /* ========================= */
 
 const ServiceCard: React.FC<{
@@ -54,14 +54,22 @@ const ServiceCard: React.FC<{
 
       {/* Main Card */}
       <div className="relative rounded-[28px] border border-[#3A3A3E] 
-    p-5 sm:p-6 md:p-8 lg:p-5 text-justify
-    overflow-hidden transition-all duration-500 
-    group-hover:border-zinc-700 
-    group-hover:shadow-2xl group-hover:shadow-blue-500/10"
+                      p-5 sm:p-6 md:p-8 lg:p-5 text-justify
+                      overflow-hidden transition-all duration-500
+                      bg-gradient-to-b from-white/[0.02] to-white/[0.01]
+                      backdrop-blur-xl
+                      group-hover:-translate-y-2
+                      group-hover:scale-[1.02]
+                      group-hover:border-blue-500/40
+                      group-hover:shadow-[0_20px_60px_-10px_rgba(59,130,246,0.25)]"
       >
+        {/* Premium Gradient Glow */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent blur-2xl" />
+        </div>
 
         {/* Inner Glass Container */}
-        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-5 sm:p-6 md:p-8 lg:p-8"
+        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-5 sm:p-6 md:p-8 lg:p-8 "
         >
           {/* Badge */}
           <div className="inline-block mb-4 sm:mb-5">
@@ -71,7 +79,7 @@ const ServiceCard: React.FC<{
           </div>
 
           {/* Title */}
-          <h3 className="font-sora text-lg sm:text-xl md:text-2xl lg:text-3xl 
+          <h3 className="font-sora text-lg sm:text-xl md:text-2xl lg:text-2xl 
         font-semibold text-white mb-3 tracking-tight"
           >
             {title}
@@ -91,7 +99,7 @@ const ServiceCard: React.FC<{
           group-hover:gap-3 transition-all duration-300"
             >
               Explore More
-              <span className="transition-transform duration-300 group-hover:translate-x-2">
+              <span className="transition-transform duration-300 group-hover:translate">
                 →
               </span>
             </span>
@@ -143,20 +151,20 @@ const Services: React.FC<ServicesProps> = ({
 
   const allServices = [
     {
-      title: "Ecommerce",
-      description: "LoremLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      title: "AI Brand Films",
+      description: "Discover how to turn your brand story into a cinematic experience via AI-driven 3D technology.  We use generative AI to make brand films with dynamic live action in a synthetic environment that boosts your brand and captures imagination!"
     },
     {
-      title: "Tech",
-      description: "LoremLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      title: "Digital-First Content",
+      description: "Design high-velocity content for any modern digital consumption platform. Using advanced AI tools, we help you craft compelling and contextual visuals that connect with your audience across diverse social ecosystems."
     },
     {
-      title: "Creative",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      title: "AI-Powered Campaigns",
+      description: "Enhance campaigns with AI and scale marketing. Our strategies are based on data and performance, guaranteeing you the best ROI for your digital marketing budget."
     },
     {
-      title: "Storytelling",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      title: "Visual Identity Systems",
+      description: "Create your brand’s AI- driven visual identity system. We design brand frameworks that are memorable and scalable and apply the necessary look and feel to brand touchpoints in an AI - enabled world."
     }
   ];
 
@@ -165,13 +173,13 @@ const Services: React.FC<ServicesProps> = ({
       id="services"
       ref={sectionRef}
       className={`relative overflow-hidden min-h-[150vh] bg-zinc-950 ${isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
-        } px-5 md:px-20 max-w-[1600px] mx-auto`}
+        } px-5 md:px-24 max-w-[1600px] mx-auto`}
     >
       {/* Header */}
       <div className="relative z-10 flex flex-col mb-14">
         <motion.div
           style={{ opacity, y }}
-          className="flex items-center gap-3 mb-4"
+          className="flex items-center gap-3 mb-4 "
         >
           <div className="w-8 h-[1px] bg-blue-500/50" />
           <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/50">
@@ -201,7 +209,7 @@ const Services: React.FC<ServicesProps> = ({
       </div>
 
       {/* Cards */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 font-sora">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10  font-sora ">
         {allServices.map((service, index) => (
           <ServiceCard
             key={index}
