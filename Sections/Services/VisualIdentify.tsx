@@ -87,7 +87,7 @@ export default function VisualIdentify() {
 
                     <video
                         className="w-full h-[90vh] object-cover"
-                        src="/service/service2.MP4"
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
                         autoPlay
                         muted
                         loop

@@ -9,7 +9,7 @@ export default function Experts() {
             <div className="w-full  flex justify-center mb-14 md:mb-10 px-5 md:px-10">
                 <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                     <video
-                        src="/expert1.MP4"
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
                         autoPlay
                         loop
                         muted
@@ -68,7 +68,7 @@ export default function Experts() {
                     <div className="w-full lg:w-1/2 flex justify-center items-center relative mt-1 lg:mt-0">
                         <motion.div className="w-full sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px]">
                             <video
-                                src="/expert.MP4"
+                                src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
                                 autoPlay
                                 loop
                                 muted

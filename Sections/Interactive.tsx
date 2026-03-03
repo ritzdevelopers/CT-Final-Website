@@ -75,7 +75,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     style={{ transformOrigin: "center center" }}
                 >
                     <iframe
-                        src="/service/service1.MP4"
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
                         className="w-full h-full object-fit pointer-events-none"
                         allow="autoplay; fullscreen"
                         allowFullScreen
@@ -120,7 +120,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     <div className="w-full flex justify-center">
                         <div className="w-full max-w-sm h-[350px] md:h-[520px]">
                             <video
-                                src="/interactive.MP4"
+                                src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515349/interactive_ahvxx6.mp4"
                                 autoPlay
                                 loop
                                 muted

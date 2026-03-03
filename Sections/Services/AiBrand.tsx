@@ -95,7 +95,7 @@ export default function AiBrand() {
 
                     <video
                         className="w-full h-[90vh] object-cover"
-                        src="/service/service1.MP4"
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
                         autoPlay
                         muted
                         loop

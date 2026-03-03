@@ -91,7 +91,7 @@ export default function Digital() {
 
                     <video
                         className="w-full h-[90vh] object-cover"
-                        src="/expert.MP4"
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
                         autoPlay
                         muted
                         loop

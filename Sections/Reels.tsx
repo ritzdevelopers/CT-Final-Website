@@ -143,7 +143,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     },
     {
       title:"AI Model",
-      video:"/reels/reel1.MP4"
+      video:"https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515085/reel1_zhmxtz.mp4"
     }
   ], []);
 
