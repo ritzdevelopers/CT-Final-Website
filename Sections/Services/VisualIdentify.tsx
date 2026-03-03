@@ -64,17 +64,19 @@ export default function VisualIdentify() {
                 </div>
 
                 {/* Right */}
-                <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed space-y-8">
+                <div className="md:col-span-2 text-gray-300 text-md space-y-3">
                     <p>
-                        A brand isn’t just seen — it’s remembered.
+                       Coin a powerful AI-driven visual identity system which can precisely and strategically define your brand and its behavior in the long-term. We develop scalable branding frameworks to ensure visual consistency at all touchpoints, including the digital world, print and social media, packaging, advertising, and experiences. Each element is made so that its message is recognisable, strengthened by the brand identity selected that will operate firmly on the market. 
                     </p>
 
                     <p>
-                        We develop cohesive visual identity systems that unify typography, color logic, motion language, and digital assets into one powerful brand presence. Every element is intentional. Every interaction is aligned.
+                       We will establish the suitable visual language, brand aesthetic, and intelligent design systems within today’s Ai-enabled ecosystem, in keeping with your organizational values, industry practices, and competitive landscape. All the elements, from detailed brand guidelines and visual governance frameworks to logo architecture, colour psychology, typography systems and iconography, is created to ensure consistency and adaptability as your brand evolves.
+
                     </p>
 
                     <p>
-                        The result is a scalable design system that works across digital, print, motion, and immersive environments — built for brands that want to stand out with precision and purpose.
+                       We offer comprehensive visual identity solutions including logotypes, colour palettes, typographic hierarchies, digital assets, UI/UX components, packaging imagery, brand collateral, motion graphics and interactive design systems. We provide long-term brand value, connection, and recall by creating a pleasing identity through effective design that speaks to your audience and differentiates you in a crowded online and offline marketplace.
+
                     </p>
                 </div>
             </div>

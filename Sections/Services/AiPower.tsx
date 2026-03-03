@@ -66,18 +66,18 @@ export default function AiPower() {
                 </div>
 
                 {/* Right */}
-                <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed space-y-8">
+                <div className="md:col-span-2 text-gray-300 text-md space-y-3">
                     <p>
-                        Intelligence that drives performance. Creativity that converts.
+                       Make full use of the potential of your marketing campaigns to drive better results and increase profits. We use AI technology to create data-driven strategies to help you reach your intended audience as effectively as possible. We closely examine how users behave and what campaigns look like, we make sure you do not waste any of your dollars. 
                     </p>
 
                     <p>
-                        We design campaigns where strategy meets machine precision.
-                        Using AI-driven insights, predictive analytics, and adaptive creative systems, we build campaigns that evolve in real time — optimizing reach, engagement, and impact across every channel.
+                       The use of AI technology can enhance your marketing campaigns in all aspects. We analyze and predict the market from the vast data. The accurate analysis helps to optimize the campaigns. Our approach guarantees the fulfilment of all performance objectives, resulting in substantial returns on your ad expenditures
                     </p>
 
                     <p>
-                        From concept to deployment, every touchpoint is engineered for measurable growth.
+                        Incorporate AI into the heart of your marketing campaign and you will easily scale your marketing campaigns. By relying on our data-driven strategies, it is easy to adapt to market trends and consumer behavior to keep your marketing campaigns effective. AI powered marketing campaigns provide result-driven services, from social media marketing to email marketing.
+
                     </p>
                 </div>
             </div>

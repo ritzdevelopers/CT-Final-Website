@@ -9,7 +9,7 @@ export default function AiBrand() {
         const ctx = gsap.context(() => {
 
             gsap.fromTo(previewRef.current,
-                 {
+                {
                     scale: 0.3,
                     borderRadius: "10px"
                 },
@@ -66,28 +66,24 @@ export default function AiBrand() {
                 </div>
 
                 {/* Right */}
-                <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed space-y-8">
+                <div className="md:col-span-2 text-gray-300 text-md  space-y-3">
                     <p>
-                        Brands don’t just speak — they resonate. With AI-powered brand films,
-                        we transform complex ideas into emotional, cinematic narratives that
-                        move audiences and create lasting impressions.
+                        Find out how 3D technology powered by AI can change the story of your brand into the cinema. Our group employs the use of generative AI to produce amazing brand videos that mesh live-action with virtual environments to ensure a built-up visual experience. Our brand films powered by AI enhance your company's story engaging viewers with captivating visuals and creative narrative.
                     </p>
 
                     <p>
-                        What we create goes beyond visuals: intelligent storytelling,
-                        data-driven creativity, and immersive motion design that elevates
-                        your brand presence across every platform.
+                        Through our AI brand films, the audience can become emotionally attached to your brand and be more aware of it. We combine the latest AI technology with traditional storytelling to create a brand film that is better than the competition. A unique audiovisual and interactive experience leaves a lasting impression and significantly enhances your brand value.
+
                     </p>
 
                     <p>
-                        The result: a future-ready brand identity that stands strong in
-                        digital, social, and motion — crafted for companies that want
-                        innovation to be seen and felt.
+                        AI brand films are the marketing of the future whether you need a corporate presentation, a digital ad, or something for social media. With our creative approach, we’ll ensure that your brand stands apart from the competition and is an experience to remember. AI filmmaking tells the story of your brand in the most futuristic and attention-grabbing way possible.
+
                     </p>
                 </div>
             </div>
 
-            {/* 🔥 Video Section */}
+            {/*  Video Section */}
             <div
                 ref={previewRef}
                 className="mt-10">

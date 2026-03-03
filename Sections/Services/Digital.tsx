@@ -14,18 +14,18 @@ export default function Digital() {
                     borderRadius: "10px"
                 },
                 {
-                   scale:1,
-                   borderRadius:"0px",
-                   ease:"none",
-                   force3D:true,
-                   scrollTrigger:{
-                    trigger:sectionRef.current,
-                    start:"top top",
-                    end:"+=80%",
-                    scrub:1.5,
-                    anticipatePin:1,
-                    invalidateOnRefresh:true
-                   } 
+                    scale: 1,
+                    borderRadius: "0px",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=80%",
+                        scrub: 1.5,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true
+                    }
                 }
             )
         })
@@ -33,9 +33,9 @@ export default function Digital() {
 
     }, [])
     return (
-        <section 
-        ref={sectionRef}
-        className="relative w-full min-h-screen  text-white px-6 md:px-20 py-5">
+        <section
+            ref={sectionRef}
+            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-5">
 
             {/* Main Heading */}
             <div className="max-w-6xl">
@@ -67,26 +67,27 @@ export default function Digital() {
                 </div>
 
                 {/* Right */}
-                <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed space-y-8">
+                <div className="md:col-span-2 text-gray-300 text-md space-y-3">
                     <p>
-                        Content today doesn’t wait to be discovered — it competes.
-                        We create digital-first experiences engineered for platforms, performance, and precision.
+                        In a digital-first world, we consume content faster than ever, and it has to hit home right away. Through the use of AI, we create fast, appealing content for you that resonates with your audience. Our content engages online users instantly, whether they are visiting your website, scrolling your mobile app, or simply seeing it on social media.
                     </p>
 
                     <p>
-                        From AI-driven visuals to short-form storytelling and interactive media, every asset is crafted to move fast, scale smart, and connect instantly.
+                        Using advanced AI, we craft contextually relevant content that is tailored to meet the exact requirements of your target audience.  We know that each platform needs its own design, so the vibes of your content always suit the message at the right time.  Whether to help you move views on your advertising message, E-commerce business, or any web service, and more !
+
                     </p>
 
                     <p>
-                        We craft high-impact visuals and AI-powered narratives engineered for digital speed and cultural relevance.
+                        Translating the content into appropriate media as per the audience requirement ensures effective engagement. Through the use of AI analytics, we keep a track of engagement and optimize it for maximum effectiveness. Regardless of whether you are launching a product, building brand awareness, or running a campaign, our content delivers results on all digital platforms.
+
                     </p>
                 </div>
             </div>
 
             {/*  Video Section */}
-            <div 
-            ref={previewRef}
-            className="mt-10">
+            <div
+                ref={previewRef}
+                className="mt-10">
                 <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl">
 
                     <video
