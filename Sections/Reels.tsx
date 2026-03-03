@@ -140,6 +140,10 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     {
       title: "Neural Core",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
+    },
+    {
+      title:"AI Model",
+      video:"/reels/reel1.MP4"
     }
   ], []);
 
@@ -223,7 +227,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
 
         {/* Navigation Buttons */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           <motion.button
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -233,9 +237,9 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           >
             <ChevronLeft size={24} />
           </motion.button>
-        </AnimatePresence>
+        </AnimatePresence> */}
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           <motion.button
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -245,7 +249,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           >
             <ChevronRight size={24} />
           </motion.button>
-        </AnimatePresence>
+        </AnimatePresence> */}
 
         {/* Scrollable Area */}
         <div

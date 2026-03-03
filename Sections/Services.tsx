@@ -2,26 +2,22 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  Video,
-  Layers,
-  Smartphone,
-  Palette,
-  Sparkles,
-  Target,
-  Clapperboard,
-  Code,
-  Cpu
-} from "lucide-react";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
+// ---------Srcoll
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 interface ServicesProps {
   isDarkMode: boolean;
   isFullPage?: boolean;
+  navigateTo: (
+    page: 'home' | 'portfolio' | 'services-page' | 'contact',
+    sectionId?: string
+  ) => void;
 }
 
 /* ========================= */
@@ -32,9 +28,11 @@ const ServiceCard: React.FC<{
   title: string;
   description: string;
   delay: number;
-}> = ({ title, description, delay }) => {
+  onClick: () => void;
+}> = ({ title, description, delay, onClick }) => {
   return (
     <motion.div
+      onClick={onClick}
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
@@ -58,10 +56,7 @@ const ServiceCard: React.FC<{
                       overflow-hidden transition-all duration-500
                       bg-gradient-to-b from-white/[0.02] to-white/[0.01]
                       backdrop-blur-xl
-                      group-hover:-translate-y-2
-                      group-hover:scale-[1.02]
-                      group-hover:border-blue-500/40
-                      group-hover:shadow-[0_20px_60px_-10px_rgba(59,130,246,0.25)]"
+                       cursor-pointer"
       >
         {/* Premium Gradient Glow */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -96,7 +91,7 @@ const ServiceCard: React.FC<{
           <div className="mt-5 sm:mt-6">
             <span className="text-yellow-500 font-medium text-xs sm:text-sm 
           flex items-center gap-2 
-          group-hover:gap-3 transition-all duration-300"
+          group-hover:gap-3 transition-all duration-300 cursor-pointer"
             >
               Explore More
               <span className="transition-transform duration-300 group-hover:translate">
@@ -116,7 +111,8 @@ const ServiceCard: React.FC<{
 
 const Services: React.FC<ServicesProps> = ({
   isDarkMode,
-  isFullPage = false
+  isFullPage = false,
+  navigateTo
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const fishRef = useRef<HTMLImageElement>(null);
@@ -151,22 +147,34 @@ const Services: React.FC<ServicesProps> = ({
 
   const allServices = [
     {
+      id: "ai-brand",
       title: "AI Brand Films",
       description: "Discover how to turn your brand story into a cinematic experience via AI-driven 3D technology.  We use generative AI to make brand films with dynamic live action in a synthetic environment that boosts your brand and captures imagination!"
     },
     {
+      id: "digital-first",
       title: "Digital-First Content",
       description: "Design high-velocity content for any modern digital consumption platform. Using advanced AI tools, we help you craft compelling and contextual visuals that connect with your audience across diverse social ecosystems."
     },
     {
+      id: "ai-powered",
       title: "AI-Powered Campaigns",
       description: "Enhance campaigns with AI and scale marketing. Our strategies are based on data and performance, guaranteeing you the best ROI for your digital marketing budget."
     },
     {
+      id: "visual-identity",
       title: "Visual Identity Systems",
       description: "Create your brand’s AI- driven visual identity system. We design brand frameworks that are memorable and scalable and apply the necessary look and feel to brand touchpoints in an AI - enabled world."
     }
   ];
+
+
+
+  const navigate = useNavigate();
+
+  const handleScroll = (id: string) => {
+    navigate(`/services#${id}`);
+  };
 
   return (
     <section
@@ -212,11 +220,13 @@ const Services: React.FC<ServicesProps> = ({
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10  font-sora ">
         {allServices.map((service, index) => (
           <ServiceCard
-            key={index}
+            key={service.id}
             delay={index * 0.1}
             title={service.title}
             description={service.description}
+            onClick={() => handleScroll(service.id)}
           />
+
         ))}
       </div>
     </section>

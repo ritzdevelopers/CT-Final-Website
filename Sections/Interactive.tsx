@@ -75,8 +75,8 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     style={{ transformOrigin: "center center" }}
                 >
                     <iframe
-                        src="https://www.youtube.com/embed/ibNrPjETR_k?autoplay=1&mute=1&loop=1&playlist=ibNrPjETR_k&controls=0&modestbranding=1"
-                        className="w-full h-full object-cover pointer-events-none"
+                        src="/service/service1.MP4"
+                        className="w-full h-full object-fit pointer-events-none"
                         allow="autoplay; fullscreen"
                         allowFullScreen
                     />
@@ -101,7 +101,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     <div className="flex flex-col sm:flex-row gap-6 items-center md:justify-end">
 
                         {/* Book Now */}
-                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-white group">
+                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-white group rounded-xl">
                             <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
                                 Book Now
@@ -109,7 +109,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         </button>
 
                         {/* Get Started */}
-                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-black bg-white group">
+                        <button className="rounded-xl relative overflow-hidden px-6 py-3 border border-white/20 text-black bg-white group">
                             <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
                                 Get started — it's free
@@ -120,7 +120,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     <div className="w-full flex justify-center">
                         <div className="w-full max-w-sm h-[350px] md:h-[520px]">
                             <video
-                                src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
+                                src="/interactive.MP4"
                                 autoPlay
                                 loop
                                 muted

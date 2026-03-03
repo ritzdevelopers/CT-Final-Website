@@ -34,7 +34,6 @@ function Card({ url, index, progress }) {
     videoRef.current = video;
 
     const tex = new THREE.VideoTexture(video);
-
    
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.minFilter = THREE.LinearFilter;
@@ -189,7 +188,7 @@ interface BespokeSectionProps {
 
 export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
   const images = [
-    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4",
+    "/service/service1.MP4",
     "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4",
     "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4",
     "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
