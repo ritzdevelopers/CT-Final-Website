@@ -31,6 +31,8 @@ export default function AiBrand() {
         })
         return () => ctx.revert();
     }, [])
+
+
     return (
         <section
             ref={sectionRef}
@@ -83,23 +85,20 @@ export default function AiBrand() {
                 </div>
             </div>
 
-            {/*  Video Section */}
-            <div
-                ref={previewRef}
-                className="mt-10">
-                <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl">
 
-                    <video
-                        className="w-full h-[90vh] object-cover"
+            {/* TOP video section */}
+            <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
+                <div
+                    ref={previewRef}
+                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl"
+                    style={{ transformOrigin: "center center" }}
+                >
+                    <iframe
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
+                        className="w-full h-full object-fit pointer-events-none rounded-2xl "
+                        allow="autoplay; fullscreen"
+                        allowFullScreen
                     />
-
-                    {/* Optional Dark Overlay */}
-                    <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                 </div>
             </div>
 

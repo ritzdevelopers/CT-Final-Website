@@ -123,6 +123,10 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const autoScrollRef = useRef<number | null>(null);
+  const positionRef = useRef(0);
+  const isPausedRef = useRef(false);
+
 
   const baseReels = useMemo(() => [
     {
@@ -142,8 +146,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
     },
     {
-      title:"AI Model",
-      video:"https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515085/reel1_zhmxtz.mp4"
+      title: "AI Model",
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515085/reel1_zhmxtz.mp4"
     }
   ], []);
 
@@ -157,49 +161,65 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     }
   };
 
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
+useEffect(() => {
+  const container = scrollRef.current;
+  if (!container) return;
 
-    const halfWidth = container.scrollWidth / 2;
-    container.scrollLeft = halfWidth;
+  const halfWidth = container.scrollWidth / 2;
+  container.scrollLeft = halfWidth;
+  positionRef.current = halfWidth;
 
-    let animationFrame: number;
-    let position = halfWidth;   // track manually
-    const speed = 0.4;          // you can go very slow now
+  const speed = 0.5;
 
-    const autoScroll = () => {
-      position += speed;
-      container.scrollLeft = position;
+  const autoScroll = () => {
+    if (!isPausedRef.current) {
+      positionRef.current += speed;
+      container.scrollLeft = positionRef.current;
 
-      if (position >= container.scrollWidth - container.clientWidth) {
-        position = halfWidth;
+      if (positionRef.current >= container.scrollWidth - container.clientWidth) {
+        positionRef.current = halfWidth;
       }
 
-      if (position <= 0) {
-        position = halfWidth;
+      if (positionRef.current <= 0) {
+        positionRef.current = halfWidth;
       }
+    }
 
-      animationFrame = requestAnimationFrame(autoScroll);
-    };
+    autoScrollRef.current = requestAnimationFrame(autoScroll);
+  };
 
-    animationFrame = requestAnimationFrame(autoScroll);
+  autoScrollRef.current = requestAnimationFrame(autoScroll);
 
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const mobilePadding = 32; // px-4 on both sides
-      const scrollAmount = window.innerWidth < 768
-        ? (scrollRef.current.clientWidth - mobilePadding)
-        : 500;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
+  return () => {
+    if (autoScrollRef.current) {
+      cancelAnimationFrame(autoScrollRef.current);
     }
   };
+}, []);
+
+const scroll = (direction: 'left' | 'right') => {
+  if (!scrollRef.current) return;
+
+  isPausedRef.current = true;
+
+  const mobilePadding = 32;
+  const scrollAmount =
+    window.innerWidth < 768
+      ? scrollRef.current.clientWidth - mobilePadding
+      : 500;
+
+  positionRef.current += direction === 'left' ? -scrollAmount : scrollAmount;
+
+  scrollRef.current.scrollTo({
+    left: positionRef.current,
+    behavior: 'smooth'
+  });
+
+  // Resume auto scroll after 2 seconds
+  setTimeout(() => {
+    isPausedRef.current = false;
+  }, 2000);
+};
 
   return (
     <section className="mt-[2.5rem] pt-2 pb-4 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
@@ -227,7 +247,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
 
         {/* Navigation Buttons */}
-        {/* <AnimatePresence>
+        <AnimatePresence>
           <motion.button
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -237,9 +257,9 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           >
             <ChevronLeft size={24} />
           </motion.button>
-        </AnimatePresence> */}
+        </AnimatePresence>
 
-        {/* <AnimatePresence>
+        <AnimatePresence>
           <motion.button
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -249,7 +269,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           >
             <ChevronRight size={24} />
           </motion.button>
-        </AnimatePresence> */}
+        </AnimatePresence>
 
         {/* Scrollable Area */}
         <div
