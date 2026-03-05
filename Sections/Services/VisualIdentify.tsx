@@ -39,7 +39,7 @@ export default function VisualIdentify() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-20">
+            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-20 pointer">
 
             {/* Main Heading */}
             <div className="max-w-6xl">
@@ -89,7 +89,7 @@ export default function VisualIdentify() {
                 <div
                     ref={previewRef}
                     onClick={togglePlay}
-                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl"
+                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl  "
                     style={{ transformOrigin: "center center" }}
                 >
 

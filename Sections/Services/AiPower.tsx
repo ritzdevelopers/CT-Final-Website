@@ -93,7 +93,7 @@ export default function AiPower() {
                     {isPlaying ? (
                         <iframe
                             src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
-                            className="w-full h-full rounded-2xl"
+                            className="w-full h-full rounded-2xl pointer-events-none"
                             allow="autoplay; fullscreen"
                             allowFullScreen
                         />

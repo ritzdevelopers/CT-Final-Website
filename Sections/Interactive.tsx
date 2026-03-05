@@ -63,6 +63,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     }, []);
 
     const [isPlaying, setIsPlaying] = useState(true)
+
     const togglePlay = () => {
         setIsPlaying(!isPlaying)
     }
@@ -80,17 +81,11 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform"
                     style={{ transformOrigin: "center center" }}
                 >
-                    {/* <iframe
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
-                        className="w-full h-full object-fit pointer-events-none"
-                        allow="autoplay; fullscreen"
-                        allowFullScreen
-                    /> */}
-
+                   
                     {isPlaying ? (
                         <iframe
                             src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.mp4"
-                            className="w-full h-full rounded-2xl  pointer-events-none"
+                            className="w-full h-full  pointer-events-none"
                             allow="autoplay; fullscreen"
                             allowFullScreen
                         />
@@ -98,7 +93,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         <img
                             src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.jpg"
                             alt="video preview"
-                            className="w-full h-full object-cover rounded-2xl"
+                            className="w-full h-full object-cover "
                         />
                     )}
 

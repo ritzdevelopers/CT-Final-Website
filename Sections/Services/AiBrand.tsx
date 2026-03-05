@@ -101,7 +101,7 @@ export default function AiBrand() {
                     {isPlaying ? (
                         <iframe
                             src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
-                            className="w-full h-full rounded-2xl"
+                            className="w-full h-full rounded-2xl pointer-events-none"
                             allow="autoplay; fullscreen"
                             allowFullScreen
                         />

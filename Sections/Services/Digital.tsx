@@ -98,7 +98,7 @@ export default function Digital() {
                     {isPlaying ? (
                         <iframe
                             src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
-                             className="w-full h-full rounded-2xl"
+                             className="w-full h-full rounded-2xl pointer-events-none"
                             allow="autoplay; fullscreen"
                             allowFullScreen
                         />
