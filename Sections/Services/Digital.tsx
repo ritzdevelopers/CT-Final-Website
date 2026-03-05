@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Digital() {
     const previewRef = useRef<HTMLDivElement>(null)
@@ -32,6 +32,13 @@ export default function Digital() {
         return () => ctx.revert();
 
     }, [])
+
+    // ----------------control video functionality play/pause
+    const [isPlaying, setIsPlaying] = useState(true);
+
+    const togglePlay = () => {
+        setIsPlaying(!isPlaying);
+    };
     return (
         <section
             ref={sectionRef}
@@ -40,7 +47,7 @@ export default function Digital() {
             {/* Main Heading */}
             <div className="max-w-6xl">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    Digital-First Content –
+                    Digital-First Content 
                     {/* Stories that captivate.
                     <br />
                     Intelligence that connects. */}
@@ -50,20 +57,14 @@ export default function Digital() {
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
                 {/* Left */}
-                <div className="space-y-3 text-sm tracking-[0.2em] uppercase">
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">AI Storytelling</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">Brand Identity Films</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">Cinematic Visuals</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">AI Motion Design</p>
+                <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Platform-Specific Content
+                    </p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">AI-Driven Content Creation
+                    </p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Contextually Relevant Content</p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Performance Optimization with AI Analytics</p>
 
-                    <div className="mt-12 space-y-3 text-gray-400 tracking-widest pt-12">
-                        <p className="hover:text-white cursor-pointer">
-                            LinkedIn ↗
-                        </p>
-                        <p className="hover:text-white cursor-pointer">
-                            Website ↗
-                        </p>
-                    </div>
                 </div>
 
                 {/* Right */}
@@ -89,15 +90,33 @@ export default function Digital() {
             <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
                 <div
                     ref={previewRef}
+                    onClick={togglePlay}
                     className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl"
                     style={{ transformOrigin: "center center" }}
                 >
-                    <iframe
-                        src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
-                        className="w-full h-full object-fit pointer-events-none rounded-2xl "
-                        allow="autoplay; fullscreen"
-                        allowFullScreen
-                    />
+
+                    {isPlaying ? (
+                        <iframe
+                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
+                             className="w-full h-full rounded-2xl"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                        />
+                    ) : (
+                        <img
+                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
+                            alt="video preview"
+                            className="w-full h-full object-cover rounded-2xl"
+                        />
+                    )}
+
+                    {!isPlaying && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl bg-black/30">
+                            ▶
+                        </div>
+                    )}
+
+                   
                 </div>
             </div>
 

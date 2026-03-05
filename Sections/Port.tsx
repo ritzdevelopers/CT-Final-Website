@@ -132,11 +132,11 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
       category: "Neural Core",
       video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
     },
-    {
-      title: "Lumora Safari",
-      category: "Immersive Design",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769086501/Lumora__Jungle_Safari_1_1_rzdyik.mp4"
-    }
+    // {
+    //   title: "Lumora Safari",
+    //   category: "Immersive Design",
+    //   video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769086501/Lumora__Jungle_Safari_1_1_rzdyik.mp4"
+    // }
   ], []);
 
   const scrollRef = useRef<HTMLDivElement>(null);

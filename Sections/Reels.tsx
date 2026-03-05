@@ -148,7 +148,11 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     {
       title: "AI Model",
       video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515085/reel1_zhmxtz.mp4"
-    }
+    },
+    {
+      title: "",
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4"
+    },
   ], []);
 
   const reels = [...baseReels, ...baseReels]; // duplicate for infinite illusion
@@ -161,65 +165,65 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     }
   };
 
-useEffect(() => {
-  const container = scrollRef.current;
-  if (!container) return;
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
 
-  const halfWidth = container.scrollWidth / 2;
-  container.scrollLeft = halfWidth;
-  positionRef.current = halfWidth;
+    const halfWidth = container.scrollWidth / 2;
+    container.scrollLeft = halfWidth;
+    positionRef.current = halfWidth;
 
-  const speed = 0.5;
+    const speed = 0.5;
 
-  const autoScroll = () => {
-    if (!isPausedRef.current) {
-      positionRef.current += speed;
-      container.scrollLeft = positionRef.current;
+    const autoScroll = () => {
+      if (!isPausedRef.current) {
+        positionRef.current += speed;
+        container.scrollLeft = positionRef.current;
 
-      if (positionRef.current >= container.scrollWidth - container.clientWidth) {
-        positionRef.current = halfWidth;
+        if (positionRef.current >= container.scrollWidth - container.clientWidth) {
+          positionRef.current = halfWidth;
+        }
+
+        if (positionRef.current <= 0) {
+          positionRef.current = halfWidth;
+        }
       }
 
-      if (positionRef.current <= 0) {
-        positionRef.current = halfWidth;
-      }
-    }
+      autoScrollRef.current = requestAnimationFrame(autoScroll);
+    };
 
     autoScrollRef.current = requestAnimationFrame(autoScroll);
+
+    return () => {
+      if (autoScrollRef.current) {
+        cancelAnimationFrame(autoScrollRef.current);
+      }
+    };
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollRef.current) return;
+
+    isPausedRef.current = true;
+
+    const mobilePadding = 32;
+    const scrollAmount =
+      window.innerWidth < 768
+        ? scrollRef.current.clientWidth - mobilePadding
+        : 500;
+
+    positionRef.current += direction === 'left' ? -scrollAmount : scrollAmount;
+
+    scrollRef.current.scrollTo({
+      left: positionRef.current,
+      behavior: 'smooth'
+    });
+
+    // Resume auto scroll after 2 seconds
+    setTimeout(() => {
+      isPausedRef.current = false;
+    }, 2000);
   };
-
-  autoScrollRef.current = requestAnimationFrame(autoScroll);
-
-  return () => {
-    if (autoScrollRef.current) {
-      cancelAnimationFrame(autoScrollRef.current);
-    }
-  };
-}, []);
-
-const scroll = (direction: 'left' | 'right') => {
-  if (!scrollRef.current) return;
-
-  isPausedRef.current = true;
-
-  const mobilePadding = 32;
-  const scrollAmount =
-    window.innerWidth < 768
-      ? scrollRef.current.clientWidth - mobilePadding
-      : 500;
-
-  positionRef.current += direction === 'left' ? -scrollAmount : scrollAmount;
-
-  scrollRef.current.scrollTo({
-    left: positionRef.current,
-    behavior: 'smooth'
-  });
-
-  // Resume auto scroll after 2 seconds
-  setTimeout(() => {
-    isPausedRef.current = false;
-  }, 2000);
-};
 
   return (
     <section className="mt-[2.5rem] pt-2 pb-4 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -62,6 +62,11 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         return () => ctx.revert();
     }, []);
 
+    const [isPlaying, setIsPlaying] = useState(true)
+    const togglePlay = () => {
+        setIsPlaying(!isPlaying)
+    }
+
     return (
         <section
             ref={sectionRef}
@@ -71,15 +76,37 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
                 <div
                     ref={previewRef}
+                    onClick={togglePlay}
                     className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform"
                     style={{ transformOrigin: "center center" }}
                 >
-                    <iframe
+                    {/* <iframe
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
                         className="w-full h-full object-fit pointer-events-none"
                         allow="autoplay; fullscreen"
                         allowFullScreen
-                    />
+                    /> */}
+
+                    {isPlaying ? (
+                        <iframe
+                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.mp4"
+                            className="w-full h-full rounded-2xl  pointer-events-none"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                        />
+                    ) : (
+                        <img
+                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.jpg"
+                            alt="video preview"
+                            className="w-full h-full object-cover rounded-2xl"
+                        />
+                    )}
+
+                    {!isPlaying && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl bg-black/30">
+                            ▶
+                        </div>
+                    )}
                 </div>
             </div>
 

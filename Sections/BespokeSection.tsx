@@ -26,7 +26,7 @@ function Card({ url, index, progress }) {
 
     video.src = url;
     video.crossOrigin = "anonymous";
-    video.loop =   true;
+    video.loop = true;
     video.muted = true;
     video.playsInline = true;
     video.autoplay = true;
@@ -34,7 +34,7 @@ function Card({ url, index, progress }) {
     videoRef.current = video;
 
     const tex = new THREE.VideoTexture(video);
-   
+
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.minFilter = THREE.LinearFilter;
     tex.magFilter = THREE.LinearFilter;
@@ -68,7 +68,7 @@ function Card({ url, index, progress }) {
 
     setTexture(tex);
 
-    video.play().catch(() => {});
+    video.play().catch(() => { });
 
     return () => {
       video.removeEventListener("loadedmetadata", applyCoverFit);
@@ -153,8 +153,8 @@ function Card({ url, index, progress }) {
 
 function CardsScene({ images, progress }) {
   return (
-    <>  
-    
+    <>
+
 
       <ambientLight intensity={0.5} />
 
@@ -191,7 +191,9 @@ export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
     "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4",
     "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4",
     "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4",
-    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
+    "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4",
+    // "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4",
+    "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686554/3d_wm31gf.mp4"
   ];
 
   const sectionRef = useRef(null);
@@ -246,7 +248,7 @@ export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
           <Canvas
             shadows
             camera={{ position: [0, 1.1, 7.5], fov: 38 }}
-            gl={{antialias: true}}
+            gl={{ antialias: true }}
             className="absolute inset-0 pt-6"
           >
             <AdaptiveDpr pixelated />
@@ -263,7 +265,7 @@ export default function BespokeSection({ isDarkMode }: BespokeSectionProps) {
             <div className="z-50 text-center max-w-3xl px-6">
 
               <h1 className="text-4xl md:text-5xl font-light leading-tight tracking-tight">
-                Visually<span className="font-medium">Stunning</span> 
+                Visually<span className="font-medium">Stunning</span>
                 <br />
                 <span className="opacity-80">
                   3D Websites with Power of AI

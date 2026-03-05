@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function AiPower() {
     const previewRef = useRef<HTMLDivElement>(null)
@@ -31,6 +31,13 @@ export default function AiPower() {
         return () => ctx.revert();
     }, [])
 
+    // ----------------controlling the videos---------
+    const [isPlaying, setIsPlaying] = useState(true);
+
+    const togglePlay = () => {
+        setIsPlaying(!isPlaying);
+    };
+
     return (
         <section
             ref={sectionRef}
@@ -39,7 +46,7 @@ export default function AiPower() {
             {/* Main Heading */}
             <div className="max-w-6xl">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    AI Power Compaigns –
+                    AI Power Compaigns 
                     {/* Stories that captivate.
                     <br />
                     Intelligence that connects. */}
@@ -49,30 +56,23 @@ export default function AiPower() {
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
                 {/* Left */}
-                <div className="space-y-3 text-sm tracking-[0.2em] uppercase">
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">AI Storytelling</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">Brand Identity Films</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">Cinematic Visuals</p>
-                    <p className="tracking-[0.2em] font-bold bg-gradient-to-r from-[#00ffa3] via-[#39ff14] to-[#dcff50] bg-clip-text text-transparent">AI Motion Design</p>
+                <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Maximize Marketing Impact</p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Data-Driven Decisions
+                    </p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Market Analysis & Optimization</p>
+                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Scalable AI Campaigns</p>
 
-                    <div className="mt-12 space-y-3 text-gray-400 tracking-widest pt-12">
-                        <p className="hover:text-white cursor-pointer">
-                            LinkedIn ↗
-                        </p>
-                        <p className="hover:text-white cursor-pointer">
-                            Website ↗
-                        </p>
-                    </div>
                 </div>
 
                 {/* Right */}
                 <div className="md:col-span-2 text-gray-300 text-md space-y-3">
                     <p>
-                       Make full use of the potential of your marketing campaigns to drive better results and increase profits. We use AI technology to create data-driven strategies to help you reach your intended audience as effectively as possible. We closely examine how users behave and what campaigns look like, we make sure you do not waste any of your dollars. 
+                        Make full use of the potential of your marketing campaigns to drive better results and increase profits. We use AI technology to create data-driven strategies to help you reach your intended audience as effectively as possible. We closely examine how users behave and what campaigns look like, we make sure you do not waste any of your dollars.
                     </p>
 
                     <p>
-                       The use of AI technology can enhance your marketing campaigns in all aspects. We analyze and predict the market from the vast data. The accurate analysis helps to optimize the campaigns. Our approach guarantees the fulfilment of all performance objectives, resulting in substantial returns on your ad expenditures
+                        The use of AI technology can enhance your marketing campaigns in all aspects. We analyze and predict the market from the vast data. The accurate analysis helps to optimize the campaigns. Our approach guarantees the fulfilment of all performance objectives, resulting in substantial returns on your ad expenditures
                     </p>
 
                     <p>
@@ -81,24 +81,41 @@ export default function AiPower() {
                     </p>
                 </div>
             </div>
-            
+
             {/* vdo section */}
-             <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
+            <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
                 <div
                     ref={previewRef}
+                    onClick={togglePlay}
                     className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl"
                     style={{ transformOrigin: "center center" }}
                 >
-                    <iframe
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
-                        className="w-full h-full object-fit pointer-events-none rounded-2xl "
-                        allow="autoplay; fullscreen"
-                        allowFullScreen
-                    />
+                    {isPlaying ? (
+                        <iframe
+                            src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
+                            className="w-full h-full rounded-2xl"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                        />
+                    ) : (
+                        <img
+                            src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
+                            alt="video preview"
+                            className="w-full h-full object-cover rounded-2xl"
+                        />
+                    )}
+
+                    {!isPlaying && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl bg-black/30">
+                            ▶
+                        </div>
+                    )}
+
+
                 </div>
             </div>
 
-            
+
 
         </section>
     );

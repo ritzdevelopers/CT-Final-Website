@@ -2,19 +2,32 @@
 
 import { motion } from "framer-motion";
 import { div } from "framer-motion/client";
+import { useRef } from "react";
 
 export default function Experts() {
+    const videoRef = useRef(null);
+
+    const togglePlay = () => {
+        const video = videoRef.current;
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    };
     return (
         <div className="bg-zinc-950">
             <div className="w-full  flex justify-center mb-14 md:mb-10 px-5 md:px-10">
                 <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
                     <video
+                        ref={videoRef}
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-contain"
+                        onClick={togglePlay}
+                        className="w-full h-full object-contain cursor-pointer"
                     />
                 </div>
             </div>
@@ -61,7 +74,7 @@ export default function Experts() {
                             >
                                 Book Now
                             </button>
-                           
+
                         </div>
                     </div>
                     {/* Video section */}
