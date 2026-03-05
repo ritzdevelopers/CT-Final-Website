@@ -129,7 +129,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
   ];
 
   return (
-    <section className={`${isFullPage ? 'min-h-screen pt-48 pb-24' : '-mt-8 py-20'} px-5 md:px-16 relative overflow-hidden bg-zinc-950`}>
+    <section className={`${isFullPage ? 'min-h-screen pt-48 pb-24' : '-mt-8 py-10'} px-5 md:px-16 relative overflow-hidden bg-zinc-950`}>
       <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
 
         <div className="flex flex-col h-full items-center lg:items-start">
@@ -171,7 +171,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                 <p className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-medium text-white leading-tight tracking-tight">
                   Unit No. 404, 4Th Floor,<br />
                   Corporate Park, Tower A1<br />
-                  Sector 142, Noida, UP, India
+                  Sector 142, Noida, Uttar Pradesh, India
                 </p>
               </div>
             </div>

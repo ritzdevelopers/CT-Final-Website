@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, navigateTo }) => {
             <button
               key={item.key}
               onClick={() => navigateTo(item.path)}
-              className={`transition-all duration-300 outline-none nav-glow ${currentPath === item.path ? 'text-[#ab8922]' : 'text-white'
+              className={`transition-all duration-300 outline-none ${currentPath === item.path ? 'text-[#ab8922]' : 'text-white'
                 }`}
             >
               {item.label}

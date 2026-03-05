@@ -65,7 +65,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
             >
               <div className="w-[1px] h-3 bg-blue-500/50" />
               <span className="text-[9px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-sora text-white/70  [word-spacing:0.7em]">
-                Ritz Gen AI Storytelling Studios
+                Ritz Gen AI Storytelling Studio
               </span>
             </motion.div>
 

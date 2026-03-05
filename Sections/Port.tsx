@@ -3,6 +3,7 @@ import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Reels from './Reels';
+import CreativePortraits from './Portfolio/CreativePortraits';
 
 interface PortProps {
   isDarkMode: boolean;
@@ -258,6 +259,8 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
       <div className="max-w-[1400px] mx-auto -mt-10">
         <Reels isDarkMode={isDarkMode} />
       </div>
+
+      <CreativePortraits/>
     </section>
   );
 };
