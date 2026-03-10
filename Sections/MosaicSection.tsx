@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
+interface MosaicSectionProps { isDarkMode?: boolean; }
 
 /* =========================
    Scroll Weight Heading
@@ -74,25 +75,25 @@ function SlidingRow({
 /* =========================
    Main Section
 ========================= */
-export default function MosaicSection() {
+export default function MosaicSection({ isDarkMode }: MosaicSectionProps) {
   return (
-    <main className="bg-zinc-950 min-h-screen p-4 space-y-6 overflow-x-hidden">
+    <main className="bg-zinc-950 min-h-screen p-4 space-y-4 overflow-x-hidden">
 
       {/* ROW 1 */}
       <SlidingRow direction={-1}>
-        <TileImage src="https://decathlon-wlkr76.index.studio/static/LandingPage/Sportswear/images/typo/rail-1.f27f2e44f0b09b5b4e3864bb35fe99a4.jpg" />
-        <TileImage src="https://picsum.photos/600/400?2" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h2_f5kt1b.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h1_wj1sgy.jpg" />
         <TileText>
           <ScrollWeightHeading>ÉDITION</ScrollWeightHeading>
         </TileText>
-        <TileImage src="https://decathlon-wlkr76.index.studio/static/LandingPage/Sportswear/images/typo/rail-4.8dd753c719d788ed76ef6b6acbd776ff.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h3_knswia.jpg" />
       </SlidingRow>
 
       {/* ROW 2 */}
       <SlidingRow direction={1}>
-        <TileImage src="https://decathlon-wlkr76.index.studio/static/LandingPage/Sportswear/images/typo/rail-12.4e8c5e78b1276aba7a8133e96df58712.jpg" />
-        <TileImage src="https://picsum.photos/600/400?5" />
-        <TileImage src="https://picsum.photos/600/400?6" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h6_wstn38.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h5_aqew4y.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h4_gjqgbg.jpg" />
         <TileText>
           <ScrollWeightHeading>LIMITÉE</ScrollWeightHeading>
         </TileText>
@@ -100,19 +101,20 @@ export default function MosaicSection() {
 
       {/* ROW 3 */}
       <SlidingRow direction={-1}>
-        <TileImage src="https://picsum.photos/600/400?7" />
-        <TileImage src="https://picsum.photos/600/400?8" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h12_wdw5ea.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h8_lfwloh.jpg" />
         <TileText>
           <ScrollWeightHeading>1500</ScrollWeightHeading>
         </TileText>
-        <TileImage src="https://picsum.photos/600/400?9" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h9_vu1vfx.jpg" />
       </SlidingRow>
 
       {/* ROW 4 */}
       <SlidingRow direction={1}>
-        <TileImage src="https://decathlon-wlkr76.index.studio/static/LandingPage/Sportswear/images/typo/rail-14.0a64339771fee89ad9c31aede58819a4.jpg" />
-        <TileImage src="https://picsum.photos/600/400?11" />
-        <TileImage src="https://decathlon-wlkr76.index.studio/static/LandingPage/Sportswear/images/typo/rail-1.f27f2e44f0b09b5b4e3864bb35fe99a4.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h7_ou4go8.jpg" />
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h11_lehnu9.jpg" />
+
+        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h10_e6ax7u.jpg" />
         <TileText>
           <ScrollWeightHeading>PIÈCES</ScrollWeightHeading>
         </TileText>
@@ -128,11 +130,11 @@ export default function MosaicSection() {
 
 function TileImage({ src }: { src: string }) {
   return (
-    <div className="w-[320px] h-[140px] overflow-hidden flex-shrink-0">
+    <div className="w-auto h-auto overflow-hidden flex-shrink-0">
       <img
         src={src}
         alt=""
-        className="w-full h-full object-cover"
+        className="w-auto h-auto object-cover"
       />
     </div>
   );

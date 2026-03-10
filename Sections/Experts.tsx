@@ -1,33 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
 import { useRef } from "react";
 
-export default function Experts() {
-    const videoRef = useRef(null);
+interface ExpertSectionProps {
+    isDarkMode?: boolean;
+}
+export default function Experts({ isDarkMode }:ExpertSectionProps) {
 
-    const togglePlay = () => {
-        const video = videoRef.current;
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
+    const videoRef1 = useRef<HTMLVideoElement | null>(null);
+    const videoRef2 = useRef<HTMLVideoElement | null>(null);
+    const handleMouseEnter = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = false;
+            video.volume = 1;
         }
     };
+
+    const handleMouseLeave = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = true;
+            video.volume = 0;
+        }
+    };
+
     return (
         <div className="bg-zinc-950">
             <div className="w-full  flex justify-center mb-14 md:mb-10 px-5 md:px-10">
-                <div className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10">
+                <div
+                    onMouseEnter={() => handleMouseEnter(videoRef1.current)}
+                    onMouseLeave={() => handleMouseLeave(videoRef1.current)}
+                    className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10 cursor-pointer">
                     <video
-                        ref={videoRef}
+                        ref={videoRef1}
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
                         autoPlay
-                        loop
                         muted
+                        loop
                         playsInline
-                        onClick={togglePlay}
-                        className="w-full h-full object-contain cursor-pointer"
+                        preload="none"
+                        className="w-full h-full object-contain "
                     />
                 </div>
             </div>
@@ -79,13 +91,18 @@ export default function Experts() {
                     </div>
                     {/* Video section */}
                     <div className="w-full lg:w-1/2 flex justify-center items-center relative mt-1 lg:mt-0">
-                        <motion.div className="w-full sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px]">
+                        <motion.div
+                            onMouseEnter={() => handleMouseEnter(videoRef2.current)}
+                            onMouseLeave={() => handleMouseLeave(videoRef2.current)}
+                            className="w-full sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer">
                             <video
+                                ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
                                 autoPlay
-                                loop
                                 muted
+                                loop
                                 playsInline
+                                preload="none"
                                 className="w-full h-full object-contain rounded-2xl shadow-2xl border border-white/20 bg-black object-cover"
 
                             />

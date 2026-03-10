@@ -62,12 +62,21 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         return () => ctx.revert();
     }, []);
 
-    const [isPlaying, setIsPlaying] = useState(true)
+    const videoRef1 = useRef<HTMLVideoElement | null>(null);
+    const videoRef2 = useRef<HTMLVideoElement | null>(null);
+    const handleMouseEnter = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = false;
+            video.volume = 1;
+        }
+    };
 
-    const togglePlay = () => {
-        setIsPlaying(!isPlaying)
-    }
-
+    const handleMouseLeave = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = true;
+            video.volume = 0;
+        }
+    };
     return (
         <section
             ref={sectionRef}
@@ -75,33 +84,25 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         >
             {/* TOP video section */}
             <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
+
                 <div
                     ref={previewRef}
-                    onClick={togglePlay}
-                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform"
+                    onMouseEnter={() => handleMouseEnter(videoRef1.current)}
+                    onMouseLeave={() => handleMouseLeave(videoRef1.current)}
+
+                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform cursor-pointer"
                     style={{ transformOrigin: "center center" }}
                 >
-                   
-                    {isPlaying ? (
-                        <iframe
-                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.mp4"
-                            className="w-full h-full  pointer-events-none"
-                            allow="autoplay; fullscreen"
-                            allowFullScreen
-                        />
-                    ) : (
-                        <img
-                            src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.jpg"
-                            alt="video preview"
-                            className="w-full h-full object-cover "
-                        />
-                    )}
-
-                    {!isPlaying && (
-                        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl bg-black/30">
-                            ▶
-                        </div>
-                    )}
+                    <video
+                        ref={videoRef1}
+                        src="https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="none"
+                        className="w-full h-full object-cover rounded-xl"
+                    />
                 </div>
             </div>
 
@@ -140,13 +141,18 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     </div>
 
                     <div className="w-full flex justify-center">
-                        <div className="w-full max-w-sm h-[350px] md:h-[520px]">
+                        <div
+                            onMouseEnter={() => handleMouseEnter(videoRef2.current)}
+                            onMouseLeave={() => handleMouseLeave(videoRef2.current)}
+                            className="w-full max-w-sm h-[350px] md:h-[520px] cursor-pointer">
                             <video
+                                ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515349/interactive_ahvxx6.mp4"
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
+                                preload="none"
                                 className="w-full h-full object-contain"
                             />
                         </div>

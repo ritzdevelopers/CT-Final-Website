@@ -32,21 +32,31 @@ export default function AiPower() {
     }, [])
 
     // ----------------controlling the videos---------
-    const [isPlaying, setIsPlaying] = useState(true);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
 
-    const togglePlay = () => {
-        setIsPlaying(!isPlaying);
+    const handleMouseEnter = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = false;
+            videoRef.current.volume = 1;
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = true;
+            videoRef.current.volume = 0;
+        }
     };
 
     return (
         <section
             ref={sectionRef}
-            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-20">
+            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-10">
 
             {/* Main Heading */}
             <div className="max-w-6xl">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    AI Power Compaigns 
+                <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+                    AI Power Compaigns
                     {/* Stories that captivate.
                     <br />
                     Intelligence that connects. */}
@@ -54,7 +64,7 @@ export default function AiPower() {
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
                 {/* Left */}
                 <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
                     <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">Maximize Marketing Impact</p>
@@ -66,7 +76,7 @@ export default function AiPower() {
                 </div>
 
                 {/* Right */}
-                <div className="md:col-span-2 text-gray-300 text-md space-y-3">
+                <div className="md:col-span-2 text-gray-300 text-md space-y-3 text-justify">
                     <p>
                         Make full use of the potential of your marketing campaigns to drive better results and increase profits. We use AI technology to create data-driven strategies to help you reach your intended audience as effectively as possible. We closely examine how users behave and what campaigns look like, we make sure you do not waste any of your dollars.
                     </p>
@@ -82,40 +92,27 @@ export default function AiPower() {
                 </div>
             </div>
 
-            {/* vdo section */}
-            <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
-                <div
+            
+                 <div
                     ref={previewRef}
-                    onClick={togglePlay}
-                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl"
+                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer"
                     style={{ transformOrigin: "center center" }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                 >
-                    {isPlaying ? (
-                        <iframe
-                            src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
-                            className="w-full h-full rounded-2xl pointer-events-none"
-                            allow="autoplay; fullscreen"
-                            allowFullScreen
-                        />
-                    ) : (
-                        <img
-                            src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
-                            alt="video preview"
-                            className="w-full h-full object-cover rounded-2xl"
-                        />
-                    )}
-
-                    {!isPlaying && (
-                        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl bg-black/30">
-                            ▶
-                        </div>
-                    )}
-
-
+                    <video
+                        ref={videoRef}
+                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        className="w-full h-full object-cover rounded-xl"
+                    />
                 </div>
-            </div>
-
-
+               
+        
 
         </section>
     );

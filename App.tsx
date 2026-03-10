@@ -8,7 +8,6 @@ import Services from "./Sections/Services";
 import Reels from "./Sections/Reels";
 import Contact from "./Sections/Contact";
 import Footer from "./Sections/Footer";
-import Port from "./Sections/Port";
 import SnowEffect from "./Sections/SnowEffect";
 import AIQuote from "./Sections/AIQuote";
 import BespokeSection from "./Sections/BespokeSection";
@@ -16,6 +15,7 @@ import Interactive from "./Sections/Interactive";
 import Experts from "./Sections/Experts";
 import MosaicSection from "./Sections/MosaicSection";
 import ServicePage from "./Sections/Services/ServicePage";
+import PortfolioPage from "./Sections/Portfolio/PortfolioPage";
 
 const App: React.FC = () => {
   const [isDarkMode] = useState(true);
@@ -97,7 +97,7 @@ const App: React.FC = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Port isDarkMode={isDarkMode} />
+                  <PortfolioPage isDarkMode={isDarkMode} />
                 </motion.div>
               }
             />

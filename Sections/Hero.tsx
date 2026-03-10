@@ -37,6 +37,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
           muted
           loop
           playsInline
+          preload='none'
           className={`w-full h-full max-w-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
         >
           <source src={backgroundVideoUrl} type="video/mp4" />

@@ -172,7 +172,7 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
   };
 
   return (
-    <section className="pt-32 md:pt-36 pb-6 max-w-full overflow-hidden relative bg-zinc-950">
+    <section className="pt-10 md:pt-20 pb-6 max-w-full overflow-hidden relative bg-zinc-950">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -254,13 +254,6 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
         </div>
       </div>
 
-      
-
-      <div className="max-w-[1400px] mx-auto -mt-10">
-        <Reels isDarkMode={isDarkMode} />
-      </div>
-
-      <CreativePortraits/>
     </section>
   );
 };
