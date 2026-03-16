@@ -29,14 +29,14 @@ const CreativePortraits = () => {
                 <img
                     src="https://images.unsplash.com/photo-1580489944761-15a19d654956"
                     className="absolute top-[58%] sm:top-[56%] md:top-72 left-4 sm:left-10 md:left-20 
-          w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
+                     w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
                 />
 
                 {/* Image 2 */}
                 <img
                     src="https://images.unsplash.com/photo-1580489944761-15a19d654956"
                     className="absolute top-[64%] sm:top-[62%] md:top-80 left-[37%] sm:left-[34%] md:left-[29%] 
-          w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
+                    w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
                 />
 
                 {/* Image 3 */}

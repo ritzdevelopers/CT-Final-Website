@@ -10,7 +10,6 @@ import {
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 
-
 // ================= CARD =================
 function Card({ url, index, progress }) {
   const CARD_WIDTH = 2.1;
