@@ -115,27 +115,27 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
     {
       title: "Gulshan Luxury",
       category: "Architectural Narrative",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769147668/Gulshan_Brand_1_1_ebdpjy.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/07_wmp4jw.mp4"
     },
     {
       title: "Namah Wellness",
       category: "Cinematic Identity",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769147707/Namah_Brand_1_1_ynlq46.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651795/04_c8jpqe.mp4"
     },
     {
       title: "MPF Narrative",
       category: "Horizontal Narrative",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769084096/1_vmbyoo.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651797/06_pazrtc.mp4"
     },
     {
       title: "RMW Synthesis",
       category: "Neural Core",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769084093/3_knelxc.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/07_wmp4jw.mp4"
     },
     {
       title: "Lumora Safari",
       category: "Immersive Design",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769086501/Lumora__Jungle_Safari_1_1_rzdyik.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651790/08_dwrbhx.mp4"
     }
   ], []);
 

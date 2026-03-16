@@ -51,18 +51,18 @@ const ReelCard: React.FC<{
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ 
+      transition={{
         opacity: { duration: 0.8, delay: index * 0.1 },
         scale: { duration: 0.8, delay: index * 0.1 }
       }}
-      whileHover={{ 
-        y: -15, 
+      whileHover={{
+        y: -15,
         zIndex: 50,
-        boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.2)" 
+        boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.2)"
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -88,20 +88,20 @@ const ReelCard: React.FC<{
 
       {/* Cinematic Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
-      
+
       {/* Content */}
-      <div 
+      <div
         style={{ transform: "translateZ(30px)" }}
         className="absolute bottom-8 left-0 right-0 text-center px-6"
       >
-        <motion.h4 
+        <motion.h4
           className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white leading-none mb-3 font-sora"
         >
           {title}
         </motion.h4>
-        <motion.div 
+        <motion.div
           animate={{ width: isHovered ? 40 : 20 }}
-          className="h-[1.5px] bg-blue-500 mx-auto rounded-full" 
+          className="h-[1.5px] bg-blue-500 mx-auto rounded-full"
         />
       </div>
 
@@ -125,23 +125,23 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const reels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083141/without_logo_tsdveb.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/05_ucknoc.mp4"
     },
     {
       title: "Studio Vision",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/VID_20251225_173407_545_j0us09.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/02_rnqgc1.mp4"
     },
     {
       title: "AI Model",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769083251/CT2_pssa6o.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/01_mrmw5v.mp4"
     },
     {
       title: "Cinematic Flow",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146036/VID_20251225_173528_892_zhqspw.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651791/09_tbp1q7.mp4"
     },
     {
       title: "Neural Core",
-      video: "https://res.cloudinary.com/df4ax8siq/video/upload/v1769146027/VID_20251225_173709_742_xue2ka.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651792/10_fufsbp.mp4"
     }
   ], []);
 
@@ -162,8 +162,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const mobilePadding = 32; // px-4 on both sides
-      const scrollAmount = window.innerWidth < 768 
-        ? (scrollRef.current.clientWidth - mobilePadding) 
+      const scrollAmount = window.innerWidth < 768
+        ? (scrollRef.current.clientWidth - mobilePadding)
         : 500;
       scrollRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
@@ -178,7 +178,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" /> */}
 
       <div className="mb-4 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -196,45 +196,45 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
 
       {/* Modern Slider Container */}
       <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
-        
+
         {/* Navigation Buttons */}
         <AnimatePresence>
           <motion.button
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              onClick={() => scroll('left')}
-              className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
-            >
-              <ChevronLeft size={24} />
-            </motion.button>
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            onClick={() => scroll('left')}
+            className={`absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollLeft ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronLeft size={24} />
+          </motion.button>
         </AnimatePresence>
 
         <AnimatePresence>
           <motion.button
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              onClick={() => scroll('right')}
-              className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
-            >
-              <ChevronRight size={24} />
-            </motion.button>
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            onClick={() => scroll('right')}
+            className={`absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white z-50 hover:bg-white hover:text-black transition-all shadow-2xl ${canScrollRight ? '' : 'opacity-40 pointer-events-none'}`}
+          >
+            <ChevronRight size={24} />
+          </motion.button>
         </AnimatePresence>
 
         {/* Scrollable Area */}
-        <div 
+        <div
           ref={scrollRef}
           onScroll={checkScroll}
           className="flex gap-0 sm:gap-8 md:gap-12 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
-          style={{ 
+          style={{
             scrollSnapType: 'x mandatory',
             perspective: '2000px'
           }}
         >
           {reels.map((reel, index) => (
             <div key={index} className="flex-shrink-0">
-              <ReelCard 
+              <ReelCard
                 title={reel.title}
                 video={reel.video}
                 isDarkMode={isDarkMode}
@@ -242,7 +242,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
               />
             </div>
           ))}
-          
+
           {/* Spacer to allow for better alignment at end */}
           <div className="w-10 md:w-24 flex-shrink-0" />
         </div>
