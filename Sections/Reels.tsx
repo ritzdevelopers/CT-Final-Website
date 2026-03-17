@@ -125,7 +125,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const reels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/05_ucknoc.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773745661/V4_eb67pa.mp4"
     },
     {
       title: "Studio Vision",
